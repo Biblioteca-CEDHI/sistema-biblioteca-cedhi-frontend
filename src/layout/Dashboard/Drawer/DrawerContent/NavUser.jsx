@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+//import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 // material-ui
@@ -44,7 +44,7 @@ const ExpandMore = styled(IconButton, { shouldForwardProp: (prop) => prop !== 't
 
 export default function UserList() {
   const theme = useTheme();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const { menuMaster } = useGetMenuMaster();
   const drawerOpen = menuMaster.isDashboardDrawerOpened;
@@ -53,11 +53,13 @@ export default function UserList() {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate(`/auth/login`, {
-        state: {
-          from: ''
-        }
-      });
+      // navigate(`/auth/login`, {
+      //   state: {
+      //     from: ''
+      //   }
+      // });
+      // regresa al login principal
+      window.location.href = "http://localhost/Biblioteca-CEDHI/index.php";
     } catch (err) {
       console.error(err);
     }
@@ -101,7 +103,7 @@ export default function UserList() {
           <ListItemAvatar>
             <Avatar alt="Avatar" src={user?.sexo === 'M' ? avatarMale : avatarFemale} sx={{ ...(drawerOpen && { width: 46, height: 46 }) }} />
           </ListItemAvatar>
-          {user?.categoria === 1 ? (
+          {/* {user?.categoria === 1 ? (
             <ListItemText
               primary={user?.nombre}
               sx={{ ...(!drawerOpen && { display: 'none' }) }}
@@ -113,7 +115,21 @@ export default function UserList() {
               sx={{ ...(!drawerOpen && { display: 'none' }) }}
               secondary="Bibliotecario"
             />
-          )}
+          )} */}
+          <ListItemText
+            primary={user?.nombre}
+            sx={{ ...(!drawerOpen && { display: 'none' }) }}
+            secondary={
+                user?.categoria === 1
+                ? 'Admin'
+                : user?.categoria === 2
+                ? 'Bibliotecario'
+                : user?.categoria === 3
+                ? 'Tutor'
+                : 'Bibliotecario'
+            }
+          />
+
         </ListItem>
       </List>
       <Menu

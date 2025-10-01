@@ -85,13 +85,25 @@ export default function ProfileTabs({ focusInput }) {
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{user?.nombre}</Typography>
               <Typography variant="h5">{user?.apellidos}</Typography>
-              {
+              {/* {
                 user?.categoria === 1 ? (
                   <Typography color="secondary">Admin</Typography>
                 ) : (
                   <Typography color="secondary">Bibliotecario</Typography>
                 )
+              } */}
+              {
+                user?.categoria === 1 ? (
+                  <Typography color="secondary">Admin</Typography>
+                ) : user?.categoria === 2 ? (
+                  <Typography color="secondary">Bibliotecario</Typography>
+                ) : user?.categoria === 3 ? (
+                  <Typography color="secondary">Tutor</Typography>
+                ) : (
+                  <Typography color="secondary">Bibliotecario</Typography>
+                )
               }
+
             </Stack>
           </Stack>
         </Grid>

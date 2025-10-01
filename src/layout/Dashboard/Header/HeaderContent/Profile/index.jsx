@@ -146,7 +146,7 @@ export default function ProfilePage() {
                           <Avatar alt="profile user" src={avatarMale} />
                           <Stack>
                             <Typography variant="subtitle1">{user?.nombre}</Typography>
-                            {user?.categoria === 1 ? (
+                            {/* {user?.categoria === 1 ? (
                               <Typography variant="body2" color="secondary">
                                 Admin
                               </Typography>
@@ -154,7 +154,17 @@ export default function ProfilePage() {
                               <Typography variant="body2" color="secondary">
                                 Bibliotecario
                               </Typography>
+                            )} */}
+                            {user?.categoria === 1 ? (
+                              <Typography variant="body2" color="secondary">Admin</Typography>
+                            ) : user?.categoria === 2 ? (
+                              <Typography variant="body2" color="secondary">Bibliotecario</Typography>
+                            ) : user?.categoria === 3 ? (
+                              <Typography variant="body2" color="secondary">Tutor</Typography>
+                            ) : (
+                              <Typography variant="body2" color="secondary">Bibliotecario</Typography>
                             )}
+
                           </Stack>
                         </Stack>
                       </Grid>

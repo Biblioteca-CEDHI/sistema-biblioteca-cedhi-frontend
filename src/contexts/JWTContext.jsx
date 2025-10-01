@@ -70,16 +70,31 @@ export const JWTProvider = ({ children }) => {
           email: userData.email,
           nombre: userData.nombre || '',
           apellido: userData.apellido || '',
-          rol:  userData.rol
+          categoria:  userData.categoria
         }
       }
     });
   };
 
-  const logout = () => {
-    setSession(null);
-    dispatch({ type: LOGOUT });
+  const logout = async () => {
+    try {
+      // Llamar al logout real de PHP
+      await fetch("http://localhost/Biblioteca-CEDHI/logout.php", {
+        method: "GET",
+        credentials: "include" // muy importante para mandar cookies de sesión
+      });
+    } catch (error) {
+      console.error("Error cerrando sesión:", error);
+    } finally {
+      // Limpiar sesión en React
+      setSession(null);
+      dispatch({ type: LOGOUT });
+
+      // Redirigir al login principal de PHP
+      window.location.href = "http://localhost/Biblioteca-CEDHI/index.php";
+    }
   };
+
 
   if (!state.isInitialized) return <Loader />;
   return (
