@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth';
 const ProtectedRoute = ({ children, roleRequired }) => {
   const { user } = useAuth();
 
-  if (!user || (roleRequired && user.rol !== roleRequired)) {
+  if (!user || (roleRequired && user.categoria !== roleRequired)) {
     return <Navigate to="/unauthorized" replace />;
   }
 

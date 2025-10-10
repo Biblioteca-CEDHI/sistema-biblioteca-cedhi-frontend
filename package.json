@@ -31,6 +31,7 @@
     "iconsax-react": "^0.0.8",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
+    "node": "^24.9.0",
     "notistack": "^3.0.1",
     "react": "^18.3.1",
     "react-apexcharts": "^1.4.1",
