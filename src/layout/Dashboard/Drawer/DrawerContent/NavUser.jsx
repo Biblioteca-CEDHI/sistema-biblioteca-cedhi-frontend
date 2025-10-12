@@ -59,7 +59,7 @@ export default function UserList() {
       //   }
       // });
       // regresa al login principal
-      window.location.href = "http://localhost/Biblioteca-CEDHI/index.php";
+      window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/index.php";
     } catch (err) {
       console.error(err);
     }

@@ -77,7 +77,7 @@ export const JWTProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Llamar al logout real de PHP
-      await fetch("http://localhost/Biblioteca-CEDHI/logout.php", {
+      await fetch("https://bibliotecacedhi.infinityfreeapp.com/logout.php", {
         method: "GET",
         credentials: "include" // muy importante para mandar cookies de sesión
       });
@@ -89,7 +89,7 @@ export const JWTProvider = ({ children }) => {
       dispatch({ type: LOGOUT });
 
       // Redirigir al login principal de PHP
-      window.location.href = "http://localhost/Biblioteca-CEDHI/index.php";
+      window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/index.php";
     }
   };
 
