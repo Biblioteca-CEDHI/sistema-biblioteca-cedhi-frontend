@@ -53,13 +53,6 @@ export default function UserList() {
   const handleLogout = async () => {
     try {
       await logout();
-      // navigate(`/auth/login`, {
-      //   state: {
-      //     from: ''
-      //   }
-      // });
-      // regresa al login principal
-      window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/index.php";
     } catch (err) {
       console.error(err);
     }
