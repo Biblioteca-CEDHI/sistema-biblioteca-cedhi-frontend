@@ -57,6 +57,10 @@ const MainRoutes = {
           element: <DashboardDefault />
         },
         {
+          path: 'token-login',
+          element: <TokenHandler />
+        },
+        {
           path: 'library',
           children: [
             {
@@ -119,7 +123,6 @@ const MainRoutes = {
         
       ]
     },
-    { path: 'token-login', element: <TokenHandler /> },
     // {
     //   path: '/auth',
     //   element: <PagesLayout />,
