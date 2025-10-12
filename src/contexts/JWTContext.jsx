@@ -79,7 +79,8 @@ export const JWTProvider = ({ children }) => {
       // Llamar al logout real de PHP
       await fetch("https://bibliotecacedhi.infinityfreeapp.com/logout.php", {
         method: "GET",
-        credentials: "include" // muy importante para mandar cookies de sesión
+        credentials: "include", // muy importante para mandar cookies de sesión
+        mode: 'no-cors'
       });
     } catch (error) {
       console.error("Error cerrando sesión:", error);
