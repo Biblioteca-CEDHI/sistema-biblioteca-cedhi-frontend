@@ -24,14 +24,12 @@ const JWTContext = createContext(null);
 
 export const JWTProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
-  // Inicialización: revisa si hay token en localStorage
   useEffect(() => {
     const init = async () => {
       try {
         const token = localStorage.getItem('serviceToken');
         if (token) {
           setSession(token);
-          // Consulta al backend para validar y obtener los datos del usuario
           const response = await axios.post('/api/auth/token-login', { token });
           if (response.data.success) {
             const user = response.data.user;
