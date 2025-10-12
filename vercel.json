@@ -1,22 +1,6 @@
 {
   "routes": [
     {
-      "src": "/sistema-biblioteca/assets/(.*)",
-      "headers": {
-        "Content-Type": "application/javascript"
-      }
-    },
-    {
-      "src": "/sistema-biblioteca/(.*\\.js)",
-      "headers": {
-        "Content-Type": "application/javascript"
-      }
-    },
-    {
-      "src": "/sistema-biblioteca/(.*)",
-      "dest": "/index.html"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }

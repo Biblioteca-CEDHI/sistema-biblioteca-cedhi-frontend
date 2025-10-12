@@ -6,7 +6,7 @@ import MainRoutes from './MainRoutes';
 // ==============================|| ROUTES RENDER ||============================== //
 
 const router = createBrowserRouter([MainRoutes], {
-  basename: import.meta.env.VITE_APP_BASE_NAME,
+  //basename: import.meta.env.VITE_APP_BASE_NAME,
   future: {
     v7_fetcherPersist: true,
     v7_normalizeFormMethod: true,
