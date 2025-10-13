@@ -74,35 +74,17 @@ export const JWTProvider = ({ children }) => {
     });
   };
 
-  const logout = async () => {
-    try {
-      // Limpiar primero la sesión de React
-      setSession(null);
-      dispatch({ type: LOGOUT });
-      localStorage.removeItem('serviceToken');
-      sessionStorage.clear();
+  const logout = () => {
+    window.open("https://bibliotecacedhi.infinityfreeapp.com/logout.php", "_blank");
+    
+    setSession(null);
+    dispatch({ type: LOGOUT });
+    localStorage.clear();
+    sessionStorage.clear();
 
-      // Llamar al logout de PHP sin esperar respuesta
-      fetch("https://bibliotecacedhi.infinityfreeapp.com/logout.php", {
-        method: "GET",
-        credentials: "include"
-      })
-      .then(() => {
-        console.log("Logout PHP exitoso");
-      })
-      .catch(() => {
-        console.log("Logout PHP completado");
-      })
-      .finally(() => {
-        // Redirigir siempre al login de PHP
-        window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/index.php";
-      });
-
-    } catch (error) {
-      console.error("Error en logout:", error);
-      // Redirigir siempre, incluso con error
+    setTimeout(() => {
       window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/index.php";
-    }
+    }, 1000);
   };
 
   if (!state.isInitialized) return <Loader />;
