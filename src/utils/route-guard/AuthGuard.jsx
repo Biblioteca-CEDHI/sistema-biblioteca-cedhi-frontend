@@ -14,7 +14,7 @@ export default function AuthGuard({ children }) {
   
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate('/auth/login', {
+      navigate('/', {
         state: {
           from: location.pathname
         },

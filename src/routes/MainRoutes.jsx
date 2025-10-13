@@ -30,10 +30,6 @@ const UserManagementList = Loadable(lazy(() => import('../pages/user-management/
 const UserProfile = Loadable(lazy(() => import('../pages/profile/user')));
 const UserTabPersonal = Loadable(lazy(() => import('../sections/profile/TabPersonal')));
 
-// render - auth
-//const AuthLogin = Loadable(lazy(() => import('../pages/auth/login')));
-//const AuthRegister = Loadable(lazy(() => import('../pages/auth/register')));
-
 // render - error
 const MaintenanceError = Loadable(lazy(() => import('../pages/maintenance/error/404')));
 const MaintenanceError500 = Loadable(lazy(() => import('../pages/maintenance/error/500')));
@@ -123,20 +119,6 @@ const MainRoutes = {
         
       ]
     },
-    // {
-    //   path: '/auth',
-    //   element: <PagesLayout />,
-    //   children: [
-    //     {
-    //       path: 'login',
-    //       element: <AuthLogin />
-    //     },
-    //     {
-    //       path: 'register',
-    //       element: <AuthRegister />
-    //     }
-    //   ]
-    // },
     {
       path: '/maintenance',
       element: <PagesLayout />,

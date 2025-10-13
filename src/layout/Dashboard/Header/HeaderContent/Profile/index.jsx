@@ -63,7 +63,11 @@ export default function ProfilePage() {
   const { logout, user } = useAuth();
 
   const handleLogout = async () => {
+    try {
       logout();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const anchorRef = useRef(null);
