@@ -75,16 +75,12 @@ export const JWTProvider = ({ children }) => {
   };
 
   const logout = () => {
-    window.open("https://bibliotecacedhi.infinityfreeapp.com/logout.php");
-    
     setSession(null);
     dispatch({ type: LOGOUT });
     localStorage.clear();
     sessionStorage.clear();
-
-    setTimeout(() => {
-      window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/index.php";
-    }, 1000);
+    
+    window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/logout.php";
   };
 
   if (!state.isInitialized) return <Loader />;
