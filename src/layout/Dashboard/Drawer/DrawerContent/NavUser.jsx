@@ -52,7 +52,7 @@ export default function UserList() {
   const { logout, user } = useAuth();
   const handleLogout = async () => {
     try {
-      await logout();
+      logout();
     } catch (err) {
       console.error(err);
     }

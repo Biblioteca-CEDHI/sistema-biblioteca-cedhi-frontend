@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -60,21 +59,11 @@ function a11yProps(index) {
 
 export default function ProfilePage() {
   const theme = useTheme();
-  const navigate = useNavigate();
 
   const { logout, user } = useAuth();
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigate(`/auth/login`, {
-        state: {
-          from: ''
-        }
-      });
-    } catch (err) {
-      console.error(err);
-    }
+      logout();
   };
 
   const anchorRef = useRef(null);
