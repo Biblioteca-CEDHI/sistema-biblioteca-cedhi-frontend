@@ -75,7 +75,7 @@ export const JWTProvider = ({ children }) => {
   };
 
   const logout = () => {
-    window.open("https://bibliotecacedhi.infinityfreeapp.com/logout.php", "_blank");
+    window.open("https://bibliotecacedhi.infinityfreeapp.com/logout.php");
     
     setSession(null);
     dispatch({ type: LOGOUT });
