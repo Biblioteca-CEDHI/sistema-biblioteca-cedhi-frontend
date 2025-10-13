@@ -12,7 +12,6 @@ export default function TokenHandler() {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     if (token) {
-      // Guarda el token en localStorage y en axios
       const loginUser = async () => {
         try {
           const response = await axios.post('/api/auth/token-login', { token });
@@ -22,26 +21,24 @@ export default function TokenHandler() {
               token
             };
             console.log('Token decodificado:', userData);
-            // Actualiza el contexto con los datos del usuario
             loginFromToken(userData);
-            // Redirige al dashboard
             navigate('/');
           } else {
             alert('Token inválido');
-            navigate('/auth/login');
+            navigate('/');
           }
         } catch (err) {
           console.error('Error validando token:', err);
-          navigate('/auth/login');
+          navigate('/');
         }
       };
 
       loginUser();
     } else {
         console.warn('No se recibió token, redirigiendo a login');
-        navigate('/auth/login');
+        navigate('/');
     }
   }, []);
 
-  return null; // No renderiza nada
+  return null; 
 }
