@@ -68,7 +68,7 @@ export const JWTProvider = ({ children }) => {
           email: userData.email,
           nombre: userData.nombre || '',
           apellido: userData.apellido || '',
-          categoria:  userData.categoria
+          categoria: userData.categoria
         }
       }
     });
@@ -79,8 +79,8 @@ export const JWTProvider = ({ children }) => {
     dispatch({ type: LOGOUT });
     localStorage.clear();
     sessionStorage.clear();
-    
-    window.location.href = "https://bibliotecacedhi.infinityfreeapp.com/logout.php";
+
+    window.location.href = "http://localhost/BibliotecaCEDHI/logout.php";
   };
 
   if (!state.isInitialized) return <Loader />;

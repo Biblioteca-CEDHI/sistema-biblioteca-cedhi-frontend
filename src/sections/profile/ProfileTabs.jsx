@@ -18,7 +18,7 @@ import MoreIcon from '../../components/@extended/MoreIcon';
 import IconButton from '../../components/@extended/IconButton';
 
 import avatarMale from '../../assets/images/users/default-male-avatar.svg';
-import avatarFemale from '../../assets/images/users/default-female-avatar.svg';
+//import avatarFemale from '../../assets/images/users/default-female-avatar.svg';
 
 // ==============================|| USER PROFILE - TABS ||============================== //
 
@@ -81,7 +81,7 @@ export default function ProfileTabs({ focusInput }) {
             </Menu>
           </Stack>
           <Stack spacing={2.5} alignItems="center">
-            <Avatar alt="Avatar 1" src={user?.sexo === 'M'? avatarMale : avatarFemale} sx={{ width: 124, height: 124, border: '1px dashed' }} />
+            <Avatar alt="Avatar 1" src={avatarMale} sx={{ width: 124, height: 124, border: '1px dashed' }} />
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">{user?.nombre}</Typography>
               <Typography variant="h5">{user?.apellidos}</Typography>
@@ -100,7 +100,7 @@ export default function ProfileTabs({ focusInput }) {
                 ) : user?.categoria === 3 ? (
                   <Typography color="secondary">Tutor</Typography>
                 ) : (
-                  <Typography color="secondary">Bibliotecario</Typography>
+                  <Typography color="secondary"></Typography>
                 )
               }
 

@@ -37,11 +37,6 @@ const allCategorys = [
   { value: 3, label: 'Tutor' }
 ];
 
-const allGender = [
-  { value: 'M', label: 'Masculino' },
-  { value: 'F', label: 'Femenino' }
-];
-
 // ============================|| JWT - REGISTER ||============================ //
 
 export default function AuthRegister() {
@@ -76,7 +71,6 @@ export default function AuthRegister() {
           lastname: '',
           email: '',
           category: '',
-          gender: '',
           password: '',
           submit: null
         }}
@@ -87,13 +81,12 @@ export default function AuthRegister() {
             .required('El cargo es obligatorio')
             .min(2, 'Debe ser mayor o igual a 2 página')
             .max(3, 'Debe ser menor o igual a 3 página'),
-          gender: Yup.string().max(15).required('El género es obligatorio'),
           email: Yup.string().email('Debe ser un correo electrónico válido').max(255).required('Se requiere correo electrónico'),
           password: Yup.string().max(255).required('Se requiere contraseña')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            await register(values.firstname, values.lastname, values.email, values.password, values.category, values.gender);
+            await register(values.firstname, values.lastname, values.email, values.password, values.category);
             if (scriptedRef.current) {
               setStatus({ success: true });
               setSubmitting(false);
@@ -108,7 +101,7 @@ export default function AuthRegister() {
               });
 
               setTimeout(() => {
-                navigate('/auth/login', { replace: true });
+                navigate('/', { replace: true });
               }, 1500);
             }
           } catch (error) {
@@ -211,87 +204,6 @@ export default function AuthRegister() {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="gender-signup">Género</InputLabel>
-                  <FormControl fullWidth>
-                    <Select
-                      id="gender-signup"
-                      name="gender"
-                      displayEmpty
-                      value={values.gender}
-                      onChange={handleChange}
-                      input={<OutlinedInput id="select-column-gender-signup" placeholder="Sort by" />}
-                      renderValue={(selected) => {
-                        if (!selected) {
-                          return <Typography variant="subtitle2">Selecciona Género</Typography>;
-                        }
-
-                        const selectedStatus = allGender.filter((item) => item.value === selected);
-                        return (
-                          <Typography variant="subtitle2">{selectedStatus.length > 0 ? selectedStatus[0].label : 'Pending'}</Typography>
-                        );
-                      }}
-                    >
-                      {allGender.map((column) => (
-                        <MenuItem key={column.value} value={column.value}>
-                          <ListItemText primary={column.label} />
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  {touched.gender && errors.gender && (
-                    <FormHelperText error id="standard-weight-helper-text-gender-signup-login" sx={{ pl: 1.75 }}>
-                      {errors.gender}
-                    </FormHelperText>
-                  )}
-                </Stack>
-              </Grid>
-
-              {/* <Grid item xs={12} md={6}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="category-signup">Categoría*</InputLabel>
-                  <OutlinedInput
-                    type="number"
-                    fullWidth
-                    error={Boolean(touched.category && errors.category)}
-                    id="category-signup"
-                    value={values.category}
-                    name="category"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    placeholder="2"
-                    inputProps={{}}
-                  />
-                </Stack>
-                {touched.category && errors.category && (
-                  <FormHelperText error id="helper-text-category-signup">
-                    {errors.category}
-                  </FormHelperText>
-                )}
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="gender-signup">Genero*</InputLabel>
-                  <OutlinedInput
-                    fullWidth
-                    error={Boolean(touched.lastname && errors.lastname)}
-                    id="gender-signup"
-                    type="gender"
-                    value={values.gender}
-                    name="gender"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    placeholder="M"
-                    inputProps={{}}
-                  />
-                </Stack>
-                {touched.gender && errors.gender && (
-                  <FormHelperText error id="helper-text-lastname-signup">
-                    {errors.gender}
-                  </FormHelperText>
-                )}
-              </Grid> */}
               <Grid item xs={12}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="email-signup">Correo electrónico*</InputLabel>

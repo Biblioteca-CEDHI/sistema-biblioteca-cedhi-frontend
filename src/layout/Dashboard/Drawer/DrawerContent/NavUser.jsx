@@ -1,6 +1,6 @@
 import { useState } from 'react';
 //import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -22,7 +22,7 @@ import { useGetMenuMaster } from '../../../../api/menu';
 import { ArrowRight2 } from 'iconsax-react';
 
 import avatarMale from '../../../../assets/images/users/default-male-avatar.svg';
-import avatarFemale from '../../../../assets/images/users/default-female-avatar.svg';
+//import avatarFemale from '../../../../assets/images/users/default-female-avatar.svg';
 
 const ExpandMore = styled(IconButton, { shouldForwardProp: (prop) => prop !== 'theme' && prop !== 'expand' && prop !== 'drawerOpen' })(
   ({ theme, expand, drawerOpen }) => ({
@@ -68,6 +68,12 @@ export default function UserList() {
     setAnchorEl(null);
   };
 
+  const roles = {
+    1: 'Administrador',
+    2: 'Bibliotecario',
+    3: 'Tutor'
+  };
+
   return (
     <Box sx={{ p: 1.25, px: !drawerOpen ? 1.25 : 3, borderTop: '2px solid ', borderTopColor: 'divider' }}>
       <List disablePadding>
@@ -94,35 +100,13 @@ export default function UserList() {
           }}
         >
           <ListItemAvatar>
-            <Avatar alt="Avatar" src={user?.sexo === 'M' ? avatarMale : avatarFemale} sx={{ ...(drawerOpen && { width: 46, height: 46 }) }} />
+            <Avatar alt="Avatar" src={avatarMale} sx={{ ...(drawerOpen && { width: 46, height: 46 }) }} />
           </ListItemAvatar>
-          {/* {user?.categoria === 1 ? (
-            <ListItemText
-              primary={user?.nombre}
-              sx={{ ...(!drawerOpen && { display: 'none' }) }}
-              secondary="Admin"
-            />
-          ) : (
-            <ListItemText
-              primary={user?.nombre}
-              sx={{ ...(!drawerOpen && { display: 'none' }) }}
-              secondary="Bibliotecario"
-            />
-          )} */}
           <ListItemText
             primary={user?.nombre}
             sx={{ ...(!drawerOpen && { display: 'none' }) }}
-            secondary={
-                user?.categoria === 1
-                ? 'Admin'
-                : user?.categoria === 2
-                ? 'Bibliotecario'
-                : user?.categoria === 3
-                ? 'Tutor'
-                : 'Bibliotecario'
-            }
+            secondary={roles[user?.categoria] ?? null}
           />
-
         </ListItem>
       </List>
       <Menu
@@ -135,9 +119,9 @@ export default function UserList() {
         transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
-        <MenuItem component={Link} to="/profile/user/personal" onClick={handleClose}>
+        {/* <MenuItem component={Link} to="/profile/user/personal" onClick={handleClose}>
           Perfil
-        </MenuItem>
+        </MenuItem> */}
       </Menu>
     </Box>
   );

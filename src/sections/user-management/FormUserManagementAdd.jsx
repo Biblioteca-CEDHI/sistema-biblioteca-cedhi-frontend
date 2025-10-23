@@ -45,10 +45,7 @@ const allCategorys = [
   { value: 'Administrativo', label: 'Administrativo' }
 ];
 
-const allGender = [
-  { value: 'M', label: 'Masculino' },
-  { value: 'F', label: 'Femenino' }
-];
+
 
 // ==============================|| CUSTOMER ADD / EDIT - FORM ||============================== //
 
@@ -232,44 +229,7 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
                         )}
                       </Stack>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Stack spacing={1}>
-                        <InputLabel htmlFor="gender-signup">Género</InputLabel>
-                        <FormControl fullWidth>
-                          <Select
-                            id="gender-signup"
-                            name="gender"
-                            displayEmpty
-                            {...getFieldProps('sexo')}
-                            onChange={(event) => setFieldValue('sexo', event.target.value)}
-                            input={<OutlinedInput id="select-column-gender-signup" placeholder="Sort by" />}
-                            renderValue={(selected) => {
-                              if (!selected) {
-                                return <Typography variant="subtitle2">Selecciona Género</Typography>;
-                              }
 
-                              const selectedStatus = allGender.filter((item) => item.value === selected);
-                              return (
-                                <Typography variant="subtitle2">
-                                  {selectedStatus.length > 0 ? selectedStatus[0].label : 'Pending'}
-                                </Typography>
-                              );
-                            }}
-                          >
-                            {allGender.map((column) => (
-                              <MenuItem key={column.value} value={column.value}>
-                                <ListItemText primary={column.label} />
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        {touched.gender && errors.gender && (
-                          <FormHelperText error id="standard-weight-helper-text-gender-signup-login" sx={{ pl: 1.75 }}>
-                            {errors.gender}
-                          </FormHelperText>
-                        )}
-                      </Stack>
-                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>

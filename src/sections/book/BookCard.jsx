@@ -20,6 +20,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 // project-imports
+import useAuth from '../../hooks/useAuth';
 import BookModal from './BookModal';
 import BookLoan from './BookLoanModal';
 import AlertBookDelete from './AlertBookDelete';
@@ -43,8 +44,8 @@ const mediaSX = {
 
 export default function BookCard({ book }) {
 
-  const { users: userLists } = useGetUserCedhi(); 
-  
+  const { users: userLists } = useGetUserCedhi();
+  const { user } = useAuth();
   const [bookModal, setBookModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
@@ -86,15 +87,17 @@ export default function BookCard({ book }) {
               <ListItem
                 disablePadding
                 secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="comments"
-                    color="secondary"
-                    onClick={handleMenuClick}
-                    sx={{ transform: 'rotate(90deg)' }}
-                  >
-                    <MoreIcon />
-                  </IconButton>
+                  [1, 2, 3].includes(user?.categoria) && (
+                    <IconButton
+                      edge="end"
+                      aria-label="comments"
+                      color="secondary"
+                      onClick={handleMenuClick}
+                      sx={{ transform: 'rotate(90deg)' }}
+                    >
+                      <MoreIcon />
+                    </IconButton>
+                  )
                 }
               >
                 <ListItemAvatar>
@@ -103,8 +106,8 @@ export default function BookCard({ book }) {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={ book.titulo ? <Typography variant="subtitle1">{ book.titulo }</Typography> : <Typography variant="subtitle1" color="error">SIN DATO</Typography>}
-                  secondary={ book.autor ? <Typography color="text.secondary">{ book.autor }</Typography> : <Typography color="error">SIN DATO</Typography>}
+                  primary={book.titulo ? <Typography variant="subtitle1">{book.titulo}</Typography> : <Typography variant="subtitle1" color="error">SIN DATO</Typography>}
+                  secondary={book.autor ? <Typography color="text.secondary">{book.autor}</Typography> : <Typography color="error">SIN DATO</Typography>}
                 />
               </ListItem>
             </List>
@@ -146,39 +149,39 @@ export default function BookCard({ book }) {
                     <ListItemIcon>
                       <Book size={18} />
                     </ListItemIcon>
-                    <ListItemText primary={ book.registro ? <Typography color="text.secondary">{ book.registro }</Typography> : <Typography color="error">SIN DATO</Typography>} />
+                    <ListItemText primary={book.registro ? <Typography color="text.secondary">{book.registro}</Typography> : <Typography color="error">SIN DATO</Typography>} />
                   </ListItem>
                   <ListItem alignItems="flex-start">
                     <ListItemIcon>
                       <Book size={18} />
                     </ListItemIcon>
-                    <ListItemText primary={ book.editorial ? <Typography color="text.secondary">{ book.editorial }</Typography> : <Typography color="error">SIN DATO</Typography>} />
+                    <ListItemText primary={book.editorial ? <Typography color="text.secondary">{book.editorial}</Typography> : <Typography color="error">SIN DATO</Typography>} />
                   </ListItem>
                   <ListItem alignItems="flex-start">
                     <ListItemIcon>
                       <Barcode size={18} />
                     </ListItemIcon>
-                    <ListItemText primary={ book.tema ? <Typography color="text.secondary">{ book.tema }</Typography> : <Typography color="error">SIN DATO</Typography>} />
+                    <ListItemText primary={book.tema ? <Typography color="text.secondary">{book.tema}</Typography> : <Typography color="error">SIN DATO</Typography>} />
                   </ListItem>
                   <ListItem alignItems="flex-start">
                     <ListItemIcon>
                       <LanguageCircle size={18} />
                     </ListItemIcon>
-                    <ListItemText primary={ book.idioma ? <Typography color="text.secondary">{ book.idioma }</Typography> : <Typography color="error">SIN DATO</Typography>} />
+                    <ListItemText primary={book.idioma ? <Typography color="text.secondary">{book.idioma}</Typography> : <Typography color="error">SIN DATO</Typography>} />
                   </ListItem>
                   <ListItem alignItems="flex-start">
                     <ListItemIcon>
                       <SliderHorizontal1 size={18} />
                     </ListItemIcon>
-                    <ListItemText primary={ book.num_paginas ? <Typography color="text.secondary">{ book.num_paginas } pág.</Typography> : <Typography color="error">SIN DATO</Typography>} />
+                    <ListItemText primary={book.num_paginas ? <Typography color="text.secondary">{book.num_paginas} pág.</Typography> : <Typography color="error">SIN DATO</Typography>} />
                   </ListItem>
                 </List>
                 <Grid>
                   <Box>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', p: 1, m: 0 }} component="ul">
                       <ListItem disablePadding sx={{ width: 'auto', pr: 0.75, pb: 0.75 }}>
-                        { book.disponibilidad ?  <Chip label="Disponible" variant="combined" color="success" size="small" />
-                        :  <Chip variant="light" color="error" size="small" label="No Disponible" />
+                        {book.disponibilidad ? <Chip label="Disponible" variant="combined" color="success" size="small" />
+                          : <Chip variant="light" color="error" size="small" label="No Disponible" />
                         }
                       </ListItem>
                     </Box>
@@ -200,19 +203,22 @@ export default function BookCard({ book }) {
           <Typography variant="caption" color="text.secondary">
             Tipo de material: {book.tipo_material}
           </Typography>
-          {book.disponibilidad ? (
-            <Button variant="outlined" size="small" onClick={editBookLoan}>
-              Reservar
-            </Button>
-          ) : (
-            <Button color="error" variant="outlined" size="small" disabled>
-              No Disponible
-            </Button>
+
+          {[1, 2, 3].includes(user?.categoria) && (
+            book.disponibilidad ? (
+              <Button variant="outlined" size="small" onClick={editBookLoan}>
+                Reservar
+              </Button>
+            ) : (
+              <Button color="error" variant="outlined" size="small" disabled>
+                No Disponible
+              </Button>
+            )
           )}
         </Stack>
       </MainCard>
 
-      <BookLoan open={bookLoanModal} modalToggler={setBookLoanModal} bookLoan={selectedBookLoan} perfilesCedhi={userLists}/>
+      <BookLoan open={bookLoanModal} modalToggler={setBookLoanModal} bookLoan={selectedBookLoan} perfilesCedhi={userLists} />
       <AlertBookDelete registro={book.registro} titulo={book.titulo} open={openAlert} handleClose={handleAlertClose} />
       <BookModal open={bookModal} modalToggler={setBookModal} book={selectedBook} />
     </>

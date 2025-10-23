@@ -4,13 +4,14 @@ import axios from '../utils/axios';
 import JWTContext from '../contexts/JWTContext';
 
 export default function TokenHandler() {
-    console.log('TokenHandler ejecutándose');
-    console.log('Params:', window.location.search);
-    const { loginFromToken } = useContext(JWTContext);
-    const navigate = useNavigate();
+  console.log('TokenHandler ejecutándose');
+  console.log('Params:', window.location.search);
+  const { loginFromToken } = useContext(JWTContext);
+  const navigate = useNavigate();
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
+    console.log("Token recibido:", token);
     if (token) {
       const loginUser = async () => {
         try {
@@ -22,23 +23,23 @@ export default function TokenHandler() {
             };
             console.log('Token decodificado:', userData);
             loginFromToken(userData);
-            navigate('/');
+            navigate('/dashboard');
           } else {
             alert('Token inválido');
-            navigate('/');
+            navigate('/dashboard');
           }
         } catch (err) {
           console.error('Error validando token:', err);
-          navigate('/');
+          navigate('/dashboard');
         }
       };
 
       loginUser();
     } else {
-        console.warn('No se recibió token, redirigiendo a login');
-        navigate('/');
+      console.warn('No se recibió token, redirigiendo a login');
+      navigate('/dashboard');
     }
   }, []);
 
-  return null; 
+  return null;
 }
