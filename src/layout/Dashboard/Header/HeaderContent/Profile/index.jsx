@@ -162,12 +162,40 @@ export default function ProfilePage() {
                       </Grid>
                     </Grid>
                   </CardContent>
-                  <TabPanel value={value} index={0} dir={theme.direction}>
-                    <ProfileTab handleLogout={handleLogout} />
-                  </TabPanel>
-                  <TabPanel value={value} index={1} dir={theme.direction}>
-                    <SettingTab />
-                  </TabPanel>
+
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
+                      <Tab
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          textTransform: 'capitalize'
+                        }}
+                        icon={<Profile size={18} style={{ marginBottom: 0, marginRight: '10px' }} />}
+                        label="Perfil"
+                        {...a11yProps(0)}
+                      />
+                      <Tab
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          textTransform: 'capitalize'
+                        }}
+                        icon={<Setting2 size={18} style={{ marginBottom: 0, marginRight: '10px' }} />}
+                        label="Config."
+                        {...a11yProps(1)}
+                      />
+                    </Tabs>
+                  </Box>
+
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-lel value={value} index={1} dir={theme.direction}>
+                      <SettingTab />
+                    </TabPanel>
                 </MainCard>
               </ClickAwayListener>
             </Paper>
