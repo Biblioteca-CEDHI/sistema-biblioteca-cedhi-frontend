@@ -23,24 +23,6 @@ export default function ProfileTab({ handleLogout }) {
   //     navigate(route);
   //   }
   // };
-
-  return (
-    <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
-      {/* <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0, '/profile/user/personal')}>
-        <ListItemIcon>
-          <Edit2 variant="Bulk" size={18} />
-        </ListItemIcon>
-        <ListItemText primary="Editar perfil" />
-      </ListItemButton> */}
-
-      <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
-        <ListItemIcon>
-          <Logout variant="Bulk" size={18} />
-        </ListItemIcon>
-        <ListItemText primary="Cerrar sesión" />
-      </ListItemButton>
-    </List>
-  );
 }
 
 ProfileTab.propTypes = { handleLogout: PropTypes.func };

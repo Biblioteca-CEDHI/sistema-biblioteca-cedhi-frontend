@@ -79,21 +79,6 @@ export default function UserList() {
       <List disablePadding>
         <ListItem
           disablePadding
-          secondaryAction={
-            <ExpandMore
-              theme={theme}
-              expand={open}
-              drawerOpen={drawerOpen}
-              id="basic-button"
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-              aria-label="show more"
-            >
-              <ArrowRight2 style={{ fontSize: '0.625rem' }} />
-            </ExpandMore>
-          }
           sx={{
             ...(!drawerOpen && { display: 'flex', justifyContent: 'flex-end' }),
             '& .MuiListItemSecondaryAction-root': { right: !drawerOpen ? 16 : -16 }
@@ -109,20 +94,6 @@ export default function UserList() {
           />
         </ListItem>
       </List>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{ 'aria-labelledby': 'basic-button' }}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
-        {/* <MenuItem component={Link} to="/profile/user/personal" onClick={handleClose}>
-          Perfil
-        </MenuItem> */}
-      </Menu>
     </Box>
   );
 }
