@@ -161,12 +161,10 @@ export default function Books() {
                   })}
                 </Select>
               </FormControl>
-              {user?.categoria === 1 || user?.categoria === 2 || user?.categoria === 3 ? (
+              {[1, 2, 3].includes(user?.categoria) && (
                 <Button variant="contained" onClick={() => setBookModal(true)} size="large" startIcon={<Add />}>
                   Agregar libro
                 </Button>
-              ) : (
-                <></>
               )}
             </Stack>
           </Stack>

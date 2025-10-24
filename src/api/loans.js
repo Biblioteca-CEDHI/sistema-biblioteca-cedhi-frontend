@@ -23,8 +23,8 @@ export const endpoints = {
 
 export function useGetLoans(user) {
   const endpoint = ([1,2,3].includes(user?.categoria))
-    ? `${URL}/api/loans/allLoans`             // Admin / roles especiales
-    : `${URL}/api/loans/my-loans`; // Usuario normal
+    ? `${URL}/api/loans/allLoans`           
+    : `${URL}/api/loans/my-loans`;
   const { data, isLoading, error, isValidating } = useSWR(user ? endpoint : null, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
