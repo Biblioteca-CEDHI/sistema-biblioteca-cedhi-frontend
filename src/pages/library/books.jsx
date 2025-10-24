@@ -13,6 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 // project-imports
+import useAuth from '../../hooks/useAuth';
 import EmptyUserCard from '../../components/cards/skeleton/EmptyUserCard';
 import { DebouncedInput } from '../../components/third-party/react-table';
 import BookCard from '../../sections/book/BookCard';
@@ -73,8 +74,8 @@ function dataSort(data, sortBy) {
 export default function Books() {
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const { books: lists } = useGetBooks(); 
-
+  const { books: lists } = useGetBooks();
+  const { user } = useAuth();
   const [sortBy, setSortBy] = useState('Default');
   const [globalFilter, setGlobalFilter] = useState('');
   const [userCard, setUserCard] = useState([]);
@@ -92,10 +93,10 @@ export default function Books() {
     if (lists && lists.length > 0) {
       const newData = lists.filter((value) => {
         if (globalFilter) {
-          return (value.titulo?.toLowerCase().includes(globalFilter.toLowerCase()) || 
-                  value.autor?.toLowerCase().includes(globalFilter.toLowerCase()) ||
-                  value.tema?.toLowerCase().includes(globalFilter.toLowerCase())
-                );
+          return (value.titulo?.toLowerCase().includes(globalFilter.toLowerCase()) ||
+            value.autor?.toLowerCase().includes(globalFilter.toLowerCase()) ||
+            value.tema?.toLowerCase().includes(globalFilter.toLowerCase())
+          );
         } else {
           return value;
         }
@@ -137,7 +138,7 @@ export default function Books() {
             <Stack direction={matchDownSM ? 'column' : 'row'} alignItems="center" spacing={1}>
               <FormControl sx={{ m: '8px !important', minWidth: 120 }}>
                 <Select
-                  id="book-sort" 
+                  id="book-sort"
                   name="book-sort"
                   value={sortBy}
                   onChange={handleChange}
@@ -160,9 +161,13 @@ export default function Books() {
                   })}
                 </Select>
               </FormControl>
-              <Button variant="contained" onClick={() => setBookModal(true)} size="large" startIcon={<Add />}>
-              Agregar libro
-              </Button>
+              {user?.categoria === 1 || user?.categoria === 2 || user?.categoria === 3 ? (
+                <Button variant="contained" onClick={() => setBookModal(true)} size="large" startIcon={<Add />}>
+                  Agregar libro
+                </Button>
+              ) : (
+                <></>
+              )}
             </Stack>
           </Stack>
         </Stack>

@@ -29,7 +29,7 @@ import useAuth from '../../../../../hooks/useAuth';
 
 // assets
 import avatarMale from '../../../../../assets/images/users/default-male-avatar.svg';
-import avatarFemale from '../../../../../assets/images/users/default-female-avatar.svg';
+//import avatarFemale from '../../../../../assets/images/users/default-female-avatar.svg';
 import { Setting2, Profile, Logout } from 'iconsax-react';
 
 // tab panel wrapper
@@ -88,6 +88,11 @@ export default function ProfilePage() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const roles = {
+    1: 'Admin',
+    2: 'Bibliotecario',
+    3: 'Tutor'
+  };
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -107,7 +112,7 @@ export default function ProfilePage() {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <Avatar alt="profile user" src={user?.sexo === 'M' ? avatarMale : avatarFemale} />
+        <Avatar alt="profile user" src={avatarMale} />
       </ButtonBase>
       <Popper
         placement="bottom-end"
@@ -139,25 +144,12 @@ export default function ProfilePage() {
                           <Avatar alt="profile user" src={avatarMale} />
                           <Stack>
                             <Typography variant="subtitle1">{user?.nombre}</Typography>
-                            {/* {user?.categoria === 1 ? (
-                              <Typography variant="body2" color="secondary">
-                                Admin
-                              </Typography>
-                            ) : (
-                              <Typography variant="body2" color="secondary">
-                                Bibliotecario
-                              </Typography>
-                            )} */}
-                            {user?.categoria === 1 ? (
-                              <Typography variant="body2" color="secondary">Admin</Typography>
-                            ) : user?.categoria === 2 ? (
-                              <Typography variant="body2" color="secondary">Bibliotecario</Typography>
-                            ) : user?.categoria === 3 ? (
-                              <Typography variant="body2" color="secondary">Tutor</Typography>
-                            ) : (
-                              <Typography variant="body2" color="secondary">Bibliotecario</Typography>
-                            )}
 
+                            {roles[user?.categoria] && (
+                              <Typography variant="body2" color="secondary">
+                                {roles[user.categoria]}
+                              </Typography>
+                            )}
                           </Stack>
                         </Stack>
                       </Grid>
@@ -199,12 +191,11 @@ export default function ProfilePage() {
                       />
                     </Tabs>
                   </Box>
-                  <TabPanel value={value} index={0} dir={theme.direction}>
-                    <ProfileTab handleLogout={handleLogout} />
-                  </TabPanel>
-                  <TabPanel value={value} index={1} dir={theme.direction}>
-                    <SettingTab />
-                  </TabPanel>
+
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-lel value={value} index={1} dir={theme.direction}>
+                      <SettingTab />
+                    </TabPanel>
                 </MainCard>
               </ClickAwayListener>
             </Paper>

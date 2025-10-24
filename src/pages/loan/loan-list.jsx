@@ -195,8 +195,8 @@ function ReactTable({ data, columns }) {
                           onClick={header.column.getToggleSortingHandler()}
                           {...(header.column.getCanSort() &&
                             header.column.columnDef.meta === undefined && {
-                              className: 'cursor-pointer prevent-select'
-                            })}
+                            className: 'cursor-pointer prevent-select'
+                          })}
                         >
                           {header.isPlaceholder ? null : (
                             <Stack direction="row" spacing={1} alignItems="center">
@@ -248,7 +248,7 @@ function ReactTable({ data, columns }) {
 export default function List() {
   const { user } = useAuth();
 
-  const { loansLoading, loans: list } = useGetLoans();
+  const { loansLoading, loans: list } = useGetLoans(user);
 
   const [open, setOpen] = useState(false);
   const [loanReturnModal, seLoanReturnModal] = useState(false);
@@ -345,9 +345,9 @@ export default function List() {
         cell: ({ row }) => (
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Stack spacing={0}>
-              { row.original.fecha_devolucion_real ?
-              <Typography color="text.secondary">{format(new Date(row.original.fecha_devolucion_real), "dd/MM/yyyy HH:mm:ss")}</Typography>
-              : <Typography color="text.secondary">Sin fecha</Typography>
+              {row.original.fecha_devolucion_real ?
+                <Typography color="text.secondary">{format(new Date(row.original.fecha_devolucion_real), "dd/MM/yyyy HH:mm:ss")}</Typography>
+                : <Typography color="text.secondary">Sin fecha</Typography>
               }
             </Stack>
           </Stack>
@@ -368,48 +368,52 @@ export default function List() {
           }
         }
       },
-      {
-        header: 'Acciones',
-        meta: { className: 'cell-center' },
-        disableSortBy: true,
-        cell: ({ row }) => {
-          return (
-            <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
-              <Tooltip title="Devolución">
-                <span>
-                  <IconButton
-                    disabled={!row.original.estado || row.original.estado === 'Devuelto'}
-                    color="primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setLoanReturn(row.original);
-                      seLoanReturnModal(true);
-                    }}
-                  >
-                    <BackSquare />
-                  </IconButton>
-                </span>
-              </Tooltip>
-              {user?.categoria === 1 ? (
-                <Tooltip title="Eliminar">
-                  <IconButton
-                    color="error"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleClose();
-                      setLoanDeleteId(row.original.id_prestamo);
-                    }}
-                  >
-                    <Trash />
-                  </IconButton>
-                </Tooltip>
-              ) : (
-                <></>
-              )}
-            </Stack>
-          );
-        }
-      }
+      ...([1, 2, 3].includes(user?.categoria)
+        ? [
+          {
+            header: 'Acciones',
+            meta: { className: 'cell-center' },
+            disableSortBy: true,
+            cell: ({ row }) => {
+              return (
+                <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
+                  <Tooltip title="Devolución">
+                    <span>
+                      <IconButton
+                        disabled={!row.original.estado || row.original.estado === 'Devuelto'}
+                        color="primary"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLoanReturn(row.original);
+                          seLoanReturnModal(true);
+                        }}
+                      >
+                        <BackSquare />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
+                  {user?.categoria === 1 ? (
+                    <Tooltip title="Eliminar">
+                      <IconButton
+                        color="error"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleClose();
+                          setLoanDeleteId(row.original.id_prestamo);
+                        }}
+                      >
+                        <Trash />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    <></>
+                  )}
+                </Stack>
+              );
+            }
+          }
+        ]
+        : [])
     ], // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
@@ -423,10 +427,12 @@ export default function List() {
       <Breadcrumbs custom heading="Lista de Prestamos" links={breadcrumbLinks} />
       <Grid container direction={matchDownSM ? 'column' : 'row'} spacing={2} sx={{ pb: 2 }}>
         <Grid item xs={12}>
-          {loansLoading ? <EmptyReactTable /> : <ReactTable {...{ data: list, columns, modalToggler: () => {
-            seLoanReturnModal(true);
-            setLoanReturn(null);
-          } }} />}
+          {loansLoading ? <EmptyReactTable /> : <ReactTable {...{
+            data: list, columns, modalToggler: () => {
+              seLoanReturnModal(true);
+              setLoanReturn(null);
+            }
+          }} />}
           <AlertLoanDelete id={Number(loanDeleteId)} open={open} handleClose={handleClose} />
           <LoanReturnModal open={loanReturnModal} modalToggler={seLoanReturnModal} loanReturn={selectedLoanReturn} />
         </Grid>

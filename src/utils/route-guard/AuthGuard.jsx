@@ -11,15 +11,16 @@ export default function AuthGuard({ children }) {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate('/', {
-        state: {
-          from: location.pathname
-        },
-        replace: true
-      });
+      // navigate('/', {
+      //   state: {
+      //     from: location.pathname
+      //   },
+      //   replace: true
+      // });
+      window.location.href = 'http://localhost/BibliotecaCEDHI/index.php';
     }
   }, [isLoggedIn, navigate, location]);
 

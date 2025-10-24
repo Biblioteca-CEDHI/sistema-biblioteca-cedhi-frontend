@@ -9,6 +9,7 @@ const URL = import.meta.env.VITE_APP_API_URL;
 export const endpoints = {
   key: '/api/loans',
   list: '/allLoans',
+  myLoans: '/my-loans',
   insert: '/addLoan',
   insertReturn: '/returnLoan',
   delete: '/deleteLoan',
@@ -17,14 +18,21 @@ export const endpoints = {
   listBooks: '/all'
 };
 
-// TRAE TODOS LOS LIBROS
 
-export function useGetLoans() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.list, fetcher, {
+// TRAE TODOS LOS PRESTAMOS
+
+export function useGetLoans(user) {
+  const endpoint = ([1,2,3].includes(user?.categoria))
+    ? `${URL}/api/loans/allLoans`             // Admin / roles especiales
+    : `${URL}/api/loans/my-loans`; // Usuario normal
+  const { data, isLoading, error, isValidating } = useSWR(user ? endpoint : null, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
+  console.log("endpoint: ", endpoint);
+  console.log("data: ", data);
+  console.log("error: ", error);
 
   const memoizedValue = useMemo(
     () => ({

@@ -33,7 +33,7 @@ const UserTabPersonal = Loadable(lazy(() => import('../sections/profile/TabPerso
 // render - error
 const MaintenanceError = Loadable(lazy(() => import('../pages/maintenance/error/404')));
 const MaintenanceError500 = Loadable(lazy(() => import('../pages/maintenance/error/500')));
-const MaintenanceErrorUnauthorized= Loadable(lazy(() => import('../pages/maintenance/error/Unauthorized')))
+const MaintenanceErrorUnauthorized = Loadable(lazy(() => import('../pages/maintenance/error/Unauthorized')))
 
 // ==============================|| MAIN ROUTES ||============================== //
 
@@ -53,16 +53,12 @@ const MainRoutes = {
           element: <DashboardDefault />
         },
         {
-          path: 'token-login',
-          element: <TokenHandler />
-        },
-        {
           path: 'library',
           children: [
             {
               path: 'books',
               element: <Books />
-            },
+            }
           ]
         },
         {
@@ -89,6 +85,7 @@ const MainRoutes = {
             {
               path: 'list',
               element: <UserManagementList />
+
             }
           ]
         },
@@ -116,8 +113,12 @@ const MainRoutes = {
             }
           ]
         },
-        
+
       ]
+    },
+    {
+      path: 'token-login',
+      element: <TokenHandler />
     },
     {
       path: '/maintenance',
