@@ -54,6 +54,7 @@ const components = {
       type: 'item',
       icon: icons.customer,
       breadcrumbs: false,
+      roles: [1, 2, 3]
     },
     {
       id: 'file-management',
@@ -62,6 +63,7 @@ const components = {
       type: 'item',
       icon: icons.plugins,
       breadcrumbs: false,
+      roles: [1]
     },
   ]
 };
