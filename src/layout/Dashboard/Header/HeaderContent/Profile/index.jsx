@@ -96,84 +96,25 @@ export default function ProfilePage() {
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
-      <ButtonBase
-        sx={{
-          p: 0.25,
-          borderRadius: 1,
-          '&:hover': { bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter' },
-          '&:focus-visible': {
-            outline: `2px solid ${theme.palette.secondary.dark}`,
-            outlineOffset: 2
-          }
-        }}
-        aria-label="open profile"
-        ref={anchorRef}
-        aria-controls={open ? 'profile-grow' : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
-        <Avatar alt="profile user" src={avatarMale} />
-      </ButtonBase>
-      <Popper
-        placement="bottom-end"
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        popperOptions={{ modifiers: [{ name: 'offset', options: { offset: [0, 9] } }] }}
-      >
-        {({ TransitionProps }) => (
-          <Transitions type="grow" position="top-right" in={open} {...TransitionProps}>
-            <Paper
-              sx={{
-                boxShadow: theme.customShadows.z1,
-                width: 290,
-                minWidth: 240,
-                maxWidth: 290,
-                [theme.breakpoints.down('md')]: { maxWidth: 250 },
-                borderRadius: 1.5
-              }}
-            >
-              <ClickAwayListener onClickAway={handleClose}>
-                <MainCard border={false} content={false}>
-                  <CardContent sx={{ px: 2.5, pt: 3 }}>
-                    <Grid container justifyContent="space-between" alignItems="center">
-                      <Grid item>
-                        <Stack direction="row" spacing={1.25} alignItems="center">
-                          <Avatar alt="profile user" src={avatarMale} />
-                          <Stack>
-                            <Typography variant="subtitle1">{user?.nombre}</Typography>
+        <Grid container spacing={2} justifyContent="space-between" alignItems="center">
+          <Grid item xs="auto">
+            <Stack direction="row" spacing={1.25} alignItems="center">
+              <Avatar alt="profile user" src={avatarMale} />
+              <Stack>
+                <Typography variant="subtitle1" color="secondary">{user?.nombre}</Typography>
+                {roles[user?.categoria] && <Typography variant="body2" color="secondary">{roles[user.categoria]}</Typography>}
+              </Stack>
+            </Stack>
+          </Grid>
 
-                            {roles[user?.categoria] && (
-                              <Typography variant="body2" color="secondary">
-                                {roles[user.categoria]}
-                              </Typography>
-                            )}
-                          </Stack>
-                        </Stack>
-                      </Grid>
-                      <Grid item>
-                        <Tooltip title="Logout">
-                          <IconButton size="large" color="error" sx={{ p: 1 }} onClick={handleLogout}>
-                            <Logout variant="Bulk" />
-                          </IconButton>
-                        </Tooltip>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                  <TabPanel value={value} index={0} dir={theme.direction}>
-                    <ProfileTab handleLogout={handleLogout} />
-                  </TabPanel>
-                  <TabPanel value={value} index={1} dir={theme.direction}>
-                    <SettingTab />
-                  </TabPanel>
-                </MainCard>
-              </ClickAwayListener>
-            </Paper>
-          </Transitions>
-        )}
-      </Popper>
+          <Grid item xs="auto">
+            <Tooltip title="Logout">
+              <IconButton size="large" color="error" sx={{ p: 1 }} onClick={handleLogout}>
+                <Logout variant="Bulk" />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        </Grid>
     </Box>
   );
 }
