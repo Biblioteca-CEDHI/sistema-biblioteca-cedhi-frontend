@@ -96,112 +96,25 @@ export default function ProfilePage() {
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
-      <ButtonBase
-        sx={{
-          p: 0.25,
-          borderRadius: 1,
-          '&:hover': { bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter' },
-          '&:focus-visible': {
-            outline: `2px solid ${theme.palette.secondary.dark}`,
-            outlineOffset: 2
-          }
-        }}
-        aria-label="open profile"
-        ref={anchorRef}
-        aria-controls={open ? 'profile-grow' : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
-        <Avatar alt="profile user" src={avatarMale} />
-      </ButtonBase>
-      <Popper
-        placement="bottom-end"
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        popperOptions={{ modifiers: [{ name: 'offset', options: { offset: [0, 9] } }] }}
-      >
-        {({ TransitionProps }) => (
-          <Transitions type="grow" position="top-right" in={open} {...TransitionProps}>
-            <Paper
-              sx={{
-                boxShadow: theme.customShadows.z1,
-                width: 290,
-                minWidth: 240,
-                maxWidth: 290,
-                [theme.breakpoints.down('md')]: { maxWidth: 250 },
-                borderRadius: 1.5
-              }}
-            >
-              <ClickAwayListener onClickAway={handleClose}>
-                <MainCard border={false} content={false}>
-                  <CardContent sx={{ px: 2.5, pt: 3 }}>
-                    <Grid container justifyContent="space-between" alignItems="center">
-                      <Grid item>
-                        <Stack direction="row" spacing={1.25} alignItems="center">
-                          <Avatar alt="profile user" src={avatarMale} />
-                          <Stack>
-                            <Typography variant="subtitle1">{user?.nombre}</Typography>
+        <Grid container spacing={2} justifyContent="space-between" alignItems="center">
+          <Grid item xs="auto">
+            <Stack direction="row" spacing={1.25} alignItems="center">
+              <Avatar alt="profile user" src={avatarMale} />
+              <Stack>
+                <Typography variant="subtitle1" color="secondary">{user?.nombre}</Typography>
+                {roles[user?.categoria] && <Typography variant="body2" color="secondary">{roles[user.categoria]}</Typography>}
+              </Stack>
+            </Stack>
+          </Grid>
 
-                            {roles[user?.categoria] && (
-                              <Typography variant="body2" color="secondary">
-                                {roles[user.categoria]}
-                              </Typography>
-                            )}
-                          </Stack>
-                        </Stack>
-                      </Grid>
-                      <Grid item>
-                        <Tooltip title="Logout">
-                          <IconButton size="large" color="error" sx={{ p: 1 }} onClick={handleLogout}>
-                            <Logout variant="Bulk" />
-                          </IconButton>
-                        </Tooltip>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
-                      <Tab
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textTransform: 'capitalize'
-                        }}
-                        icon={<Profile size={18} style={{ marginBottom: 0, marginRight: '10px' }} />}
-                        label="Perfil"
-                        {...a11yProps(0)}
-                      />
-                      <Tab
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textTransform: 'capitalize'
-                        }}
-                        icon={<Setting2 size={18} style={{ marginBottom: 0, marginRight: '10px' }} />}
-                        label="Config."
-                        {...a11yProps(1)}
-                      />
-                    </Tabs>
-                  </Box>
-
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-lel value={value} index={1} dir={theme.direction}>
-                      <SettingTab />
-                    </TabPanel>
-                </MainCard>
-              </ClickAwayListener>
-            </Paper>
-          </Transitions>
-        )}
-      </Popper>
+          <Grid item xs="auto">
+            <Tooltip title="Regresar">
+              <IconButton size="large" sx={{ p: 1 }} onClick={handleLogout}>
+                <Logout variant="Bulk" />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        </Grid>
     </Box>
   );
 }

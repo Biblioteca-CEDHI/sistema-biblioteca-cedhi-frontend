@@ -80,7 +80,7 @@ export const JWTProvider = ({ children }) => {
     localStorage.clear();
     sessionStorage.clear();
 
-    window.location.href = "http://localhost/BibliotecaCEDHI/logout.php";
+    window.location.href = "http://localhost/BibliotecaCEDHI/";
   };
 
   if (!state.isInitialized) return <Loader />;
