@@ -25,7 +25,7 @@ export function useGetLoans(user) {
   const endpoint = ([1,2,3].includes(user?.categoria))
     ? `${URL}/api/loans/allLoans`           
     : `${URL}/api/loans/my-loans`;
-  const { data, isLoading, error, isValidating } = useSWR(user ? endpoint : null, fetcher, {
+  const { data, isLoading, error, isValidating } = useSWR(endpoint, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false

@@ -15,12 +15,11 @@ export const endpoints = {
 // TRAE TODOS LAS SANCIONES
 
 export function useGetSancions() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.list, fetcher, {
+  const { data, isLoading, error, isValidating } = useSWR(URL + endpoints.key + endpoints.list, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
-
   const memoizedValue = useMemo(
     () => ({
       sanctions: data?.sancion,
