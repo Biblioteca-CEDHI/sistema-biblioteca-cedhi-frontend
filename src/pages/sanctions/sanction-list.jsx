@@ -28,6 +28,7 @@ import {
 } from '@tanstack/react-table';
 
 // project-import
+import useAuth from '../../hooks/useAuth';
 import MainCard from '../../components/MainCard';
 import ScrollX from '../../components/ScrollX';
 import IconButton from '../../components/@extended/IconButton';
@@ -136,8 +137,8 @@ function ReactTable({ data, columns }) {
                           onClick={header.column.getToggleSortingHandler()}
                           {...(header.column.getCanSort() &&
                             header.column.columnDef.meta === undefined && {
-                              className: 'cursor-pointer prevent-select'
-                            })}
+                            className: 'cursor-pointer prevent-select'
+                          })}
                         >
                           {header.isPlaceholder ? null : (
                             <Stack direction="row" spacing={1} alignItems="center">
@@ -188,8 +189,9 @@ function ReactTable({ data, columns }) {
 
 export default function CustomerListPage() {
   const theme = useTheme();
+  const { user } = useAuth();
 
-  const { sanctionsLoading: loading, sanctions: lists } = useGetSancions();
+  const { sanctionsLoading: loading, sanctions: lists } = useGetSancions(user);
 
   const [open, setOpen] = useState(false);
 
@@ -201,55 +203,56 @@ export default function CustomerListPage() {
 
   const columns = useMemo(
     () => [
-      {
-        id: 'Row Selection',
-        header: ({ table }) => (
-          <IndeterminateCheckbox
-            {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler()
-            }}
-          />
-        ),
-        cell: ({ row }) => (
-          <IndeterminateCheckbox
-            {...{
-              checked: row.getIsSelected(),
-              disabled: !row.getCanSelect(),
-              indeterminate: row.getIsSomeSelected(),
-              onChange: row.getToggleSelectedHandler()
-            }}
-          />
-        )
-      },
-      {
-        header: 'ID ',
-        accessorKey: 'id_sancion',
-        meta: {
-          className: 'cell-center'
-        }
-      },
-      {
-        header: 'Usuario',
-        accessorKey: 'nombres',
-        cell: ({ row }) => (
-          <Stack direction="row" spacing={1.5} alignItems="center">
-            <Stack spacing={0}>
-              <Typography variant="subtitle1">DNI: {row.original.id_usuario}</Typography>
-            </Stack>
-          </Stack>
-        )
-      },
+      ...([1, 2, 3].includes(user?.categoria)
+        ? [
+          {
+            id: 'Row Selection',
+            header: ({ table }) => (
+              <IndeterminateCheckbox
+                {...{
+                  checked: table.getIsAllRowsSelected(),
+                  indeterminate: table.getIsSomeRowsSelected(),
+                  onChange: table.getToggleAllRowsSelectedHandler()
+                }}
+              />
+            ),
+            cell: ({ row }) => (
+              <IndeterminateCheckbox
+                {...{
+                  checked: row.getIsSelected(),
+                  disabled: !row.getCanSelect(),
+                  indeterminate: row.getIsSomeSelected(),
+                  onChange: row.getToggleSelectedHandler()
+                }}
+              />
+            )
+          },
+        ]
+        : []),
+      ...([1, 2, 3].includes(user?.categoria)
+        ? [
+          {
+            header: 'Usuario',
+            accessorKey: 'nombres',
+            cell: ({ row }) => (
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                <Stack spacing={0}>
+                  <Typography variant="subtitle1">DNI: {row.original.id_usuario}</Typography>
+                </Stack>
+              </Stack>
+            )
+          },
+        ]
+        : []),
       {
         header: 'Creado',
         accessorKey: 'createdAt',
         cell: ({ row }) => (
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Stack spacing={0}>
-              { row.original.createdAt ?
-              <Typography color="text.secondary">{format(new Date(row.original.createdAt), "dd/MM/yyyy HH:mm:ss")}</Typography>
-              : <Typography color="text.secondary">Sin fecha</Typography>
+              {row.original.createdAt ?
+                <Typography color="text.secondary">{format(new Date(row.original.createdAt), "dd/MM/yyyy HH:mm:ss")}</Typography>
+                : <Typography color="text.secondary">Sin fecha</Typography>
               }
             </Stack>
           </Stack>
@@ -279,34 +282,38 @@ export default function CustomerListPage() {
           }
         }
       },
-      {
-        header: 'Acciones',
-        meta: {
-          className: 'cell-center'
-        },
-        disableSortBy: true,
-        cell: ({ row }) => {
-          return (
-            <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
-              <Tooltip title="Remover sanción">
-              <span>
-                <IconButton
-                  disabled={!row.original.estado}
-                  color="error"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleClose();
-                    setCustomerDeleteId(Number(row.original.id_sancion));
-                  }}
-                >
-                  <NoteRemove />
-                </IconButton>
-                </span>
-              </Tooltip>
-            </Stack>
-          );
-        }
-      }
+      ...([1, 2, 3].includes(user?.categoria)
+        ? [
+          {
+            header: 'Acciones',
+            meta: {
+              className: 'cell-center'
+            },
+            disableSortBy: true,
+            cell: ({ row }) => {
+              return (
+                <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
+                  <Tooltip title="Remover sanción">
+                    <span>
+                      <IconButton
+                        disabled={!row.original.estado}
+                        color="error"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleClose();
+                          setCustomerDeleteId(Number(row.original.id_sancion));
+                        }}
+                      >
+                        <NoteRemove />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
+                </Stack>
+              );
+            }
+          }
+        ]
+        : [])
     ], // eslint-disable-next-line
     [theme]
   );
@@ -325,7 +332,7 @@ export default function CustomerListPage() {
         }}
       />
 
-      <AlertSanctionDesactivate id={Number(customerDeleteId)} title={customerDeleteId.toString()} open={open} handleClose={handleClose}/>
+      <AlertSanctionDesactivate id={Number(customerDeleteId)} title={customerDeleteId.toString()} open={open} handleClose={handleClose} />
     </>
   );
 }
