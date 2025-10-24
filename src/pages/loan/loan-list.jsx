@@ -73,9 +73,9 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
 // ==============================|| REACT TABLE - LIST ||============================== //
 
 function ReactTable({ data, columns }) {
-  const groups = ['Todo', ...new Set(data.map((item) => item.estado))];
+  const groups = ['Todo', ...new Set(data?.map((item) => item.estado) || [])];
 
-  const countGroup = data.map((item) => item.estado);
+  const countGroup = data?.map((item) => item.estado) || [];
   const counts = countGroup.reduce(
     (acc, value) => ({
       ...acc,
@@ -428,7 +428,7 @@ export default function List() {
       <Grid container direction={matchDownSM ? 'column' : 'row'} spacing={2} sx={{ pb: 2 }}>
         <Grid item xs={12}>
           {loansLoading ? <EmptyReactTable /> : <ReactTable {...{
-            data: list, columns, modalToggler: () => {
+            data: list ?? [], columns, modalToggler: () => {
               seLoanReturnModal(true);
               setLoanReturn(null);
             }
