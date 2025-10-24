@@ -108,8 +108,8 @@ export default function ProfilePage() {
         </Grid>
 
         <Grid item xs="auto">
-          <Tooltip title="Logout">
-            <IconButton size="large" color="error" sx={{ p: 1 }} onClick={handleLogout}>
+          <Tooltip title="Regresar">
+            <IconButton size="large" sx={{ p: 1 }} onClick={handleLogout}>
               <Logout variant="Bulk" />
             </IconButton>
           </Tooltip>
