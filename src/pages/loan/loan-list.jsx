@@ -73,6 +73,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
 // ==============================|| REACT TABLE - LIST ||============================== //
 
 function ReactTable({ data, columns }) {
+  const { user } = useAuth();
   const groups = ['Todo', ...new Set(data.map((item) => item.estado))];
 
   const countGroup = data.map((item) => item.estado);
@@ -168,9 +169,11 @@ function ReactTable({ data, columns }) {
 
         <Stack direction="row" alignItems="center" spacing={2}>
           <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
-          <CSVExport
-            {...{ data: table.getSelectedRowModel().flatRows.map((row) => row.original), headers, filename: 'loans-list.csv' }}
-          />
+          {[1, 2, 3].includes(user?.categoria) && (
+            <CSVExport
+              {...{ data: table.getSelectedRowModel().flatRows.map((row) => row.original), headers, filename: 'loans-list.csv' }}
+            />
+          )}
         </Stack>
       </Stack>
       <ScrollX>

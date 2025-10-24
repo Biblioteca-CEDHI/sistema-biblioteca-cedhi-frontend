@@ -60,6 +60,7 @@ import { NoteRemove } from 'iconsax-react';
 // ==============================|| REACT TABLE - LIST ||============================== //
 
 function ReactTable({ data, columns }) {
+  const { user } = useAuth();
   const [sorting, setSorting] = useState([{ id: 'nombres', desc: false }]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -110,9 +111,11 @@ function ReactTable({ data, columns }) {
 
         <Stack direction="row" alignItems="center" spacing={2}>
           <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
-          <CSVExport
-            {...{ data: table.getSelectedRowModel().flatRows.map((row) => row.original), headers, filename: 'sanctions-list.csv' }}
-          />
+          {[1, 2, 3].includes(user?.categoria) && (
+            <CSVExport
+              {...{ data: table.getSelectedRowModel().flatRows.map((row) => row.original), headers, filename: 'sanctions-list.csv' }}
+            />
+          )}
         </Stack>
       </Stack>
       <ScrollX>
