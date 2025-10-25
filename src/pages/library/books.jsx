@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -21,6 +20,7 @@ import BookModal from '../../sections/book/BookModal';
 
 import usePagination from '../../hooks/usePagination';
 import { useGetBooks } from '../../api/books';
+import { useFavoriteBooks } from '../../api/books';
 
 // assets
 import { Add, SearchNormal1 } from 'iconsax-react';
@@ -82,6 +82,7 @@ export default function Books() {
   const [page, setPage] = useState(1);
   const [bookLoading, setBookLoading] = useState(true);
   const [bookModal, setBookModal] = useState(false);
+  const { favoriteBooks } = useFavoriteBooks();
 
   const handleChange = (event) => {
     setSortBy(event.target.value);
@@ -175,7 +176,10 @@ export default function Books() {
           _DATA.currentData().map((book, index) => (
             <Slide key={index} direction="up" in={true} timeout={50}>
               <Grid item xs={12} sm={6} lg={4}>
-                <BookCard book={book} />
+                <BookCard
+                  book={book}
+                  userFavorites={favoriteBooks || []}
+                />
               </Grid>
             </Slide>
           ))

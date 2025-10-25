@@ -13,7 +13,6 @@ export const endpoints = {
   insert: '/addLoan',
   insertReturn: '/returnLoan',
   delete: '/deleteLoan',
-
   keyBooks: '/api/booksget',
   listBooks: '/all'
 };

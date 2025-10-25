@@ -8,6 +8,8 @@ import useAuth from '../../hooks/useAuth';
 import ReportCard from '../../components/cards/statistics/ReportCard';
 import RankingUsers from '../../sections/widget/data/RankingUsers';
 import RankingBooks from '../../sections/widget/data/RankingBooks';
+import LoansUser from '../../sections/widget/data/LoansUser';
+import FavoritesBooks from '../../sections/widget/data/FavoritesBooks';
 import { useGetTotalBooksUsers } from '../../api/stadistic';
 
 // assets
@@ -45,6 +47,16 @@ export default function DashboardDefault() {
       {[1, 2, 3].includes(user?.categoria) && (
         <Grid item xs={12} md={6} lg={6}>
           <RankingBooks />
+        </Grid>
+      )}
+      {[4].includes(user?.categoria) && (
+        <Grid item xs={12} md={6} lg={6}>
+          <LoansUser />
+        </Grid>
+      )}
+      {[4].includes(user?.categoria) && (
+        <Grid item xs={12} md={6} lg={6}>
+          <FavoritesBooks />
         </Grid>
       )}
     </Grid>

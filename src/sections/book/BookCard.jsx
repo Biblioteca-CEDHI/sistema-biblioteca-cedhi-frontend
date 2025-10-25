@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // material-ui
 import Box from '@mui/material/Box';
@@ -18,6 +18,8 @@ import Typography from '@mui/material/Typography';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { Star1 } from 'iconsax-react';
+
 
 // project-imports
 import useAuth from '../../hooks/useAuth';
@@ -29,6 +31,7 @@ import Avatar from '../../components/@extended/Avatar';
 import IconButton from '../../components/@extended/IconButton';
 import MoreIcon from '../../components/@extended/MoreIcon';
 import { useGetUserCedhi } from '../../api/users';
+import { addFavoriteBook, removeFavoriteBook } from '../../api/books';
 
 // assets
 import defaultCoverBook2 from '../../assets/images/book-covers/book-cover-2.png';
@@ -42,10 +45,11 @@ const mediaSX = {
 
 // ==============================|| BOOK - CARD ||============================== //
 
-export default function BookCard({ book }) {
+export default function BookCard({ book, userFavorites }) {
 
   const { users: userLists } = useGetUserCedhi();
   const { user } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(false);
   const [bookModal, setBookModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
@@ -77,7 +81,22 @@ export default function BookCard({ book }) {
     setSelectedBook(book);
     setBookModal(true);
   };
+  useEffect(() => {
+    setIsFavorite(userFavorites.some(fav => fav.registro === book.registro));
+  }, [book, userFavorites]);
 
+  const toggleFavorite = async (registro) => {
+    try {
+      if (isFavorite) {
+        await removeFavoriteBook(registro);
+      } else {
+        await addFavoriteBook(registro);
+      }
+      setIsFavorite(!isFavorite);
+    } catch (err) {
+      console.error("Error toggling favorite:", err);
+    }
+  };
   return (
     <>
       <MainCard sx={{ height: 1, '& .MuiCardContent-root': { height: 1, display: 'flex', flexDirection: 'column' } }}>
@@ -87,17 +106,29 @@ export default function BookCard({ book }) {
               <ListItem
                 disablePadding
                 secondaryAction={
-                  [1, 2, 3].includes(user?.categoria) && (
-                    <IconButton
-                      edge="end"
-                      aria-label="comments"
-                      color="secondary"
-                      onClick={handleMenuClick}
-                      sx={{ transform: 'rotate(90deg)' }}
-                    >
-                      <MoreIcon />
-                    </IconButton>
-                  )
+                  <>
+                    {user?.categoria === 4 && (
+                      <IconButton
+                        edge="end"
+                        aria-label="favorito"
+                        color={isFavorite ? "warning" : "default"} // amarillo si ya es favorito
+                        onClick={() => toggleFavorite(book.registro)} // tu función para agregar/quitar
+                      >
+                        <Star1 variant={isFavorite ? "Bold" : "Outline"} size={24} />
+                      </IconButton>
+                    )}
+                    {[1, 2, 3].includes(user?.categoria) && (
+                      <IconButton
+                        edge="end"
+                        aria-label="comments"
+                        color="secondary"
+                        onClick={handleMenuClick}
+                        sx={{ transform: 'rotate(90deg)' }}
+                      >
+                        <MoreIcon />
+                      </IconButton>
+                    )}
+                  </>
                 }
               >
                 <ListItemAvatar>
@@ -216,7 +247,7 @@ export default function BookCard({ book }) {
             )
           )}
         </Stack>
-      </MainCard>
+      </MainCard >
 
       <BookLoan open={bookLoanModal} modalToggler={setBookLoanModal} bookLoan={selectedBookLoan} perfilesCedhi={userLists} />
       <AlertBookDelete registro={book.registro} titulo={book.titulo} open={openAlert} handleClose={handleAlertClose} />
