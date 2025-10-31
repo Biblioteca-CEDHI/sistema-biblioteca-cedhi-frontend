@@ -13,7 +13,6 @@ export const endpoints = {
   insert: '/addLoan',
   insertReturn: '/returnLoan',
   delete: '/deleteLoan',
-
   keyBooks: '/api/booksget',
   listBooks: '/all'
 };
@@ -23,8 +22,8 @@ export const endpoints = {
 
 export function useGetLoans(user) {
   const endpoint = ([1,2,3].includes(user?.categoria))
-    ? `${URL}/api/loans/allLoans`           
-    : `${URL}/api/loans/my-loans`;
+    ? `${URL}${endpoints.key}${endpoints.list}`    
+    : `${URL}${endpoints.key}${endpoints.myLoans}`;
   const { data, isLoading, error, isValidating } = useSWR(endpoint, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
