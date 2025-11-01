@@ -26,19 +26,21 @@ export default function DashboardDefault() {
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
 
-      <Grid item xs={12} sm={12} md={9} lg={9}>
+      <Grid item xs={12} sm={12} md={9} lg={user.categoria === 4 ? 12 : 9}>
         <WelcomeBanner />
       </Grid>
-      <Grid item xs={12} sm={12} md={3} lg={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={12} lg={12}>
-            <Stack spacing={3}>
-              <ReportCard primary={totalBooksUsersLoading ? '0' : list[0].libros} secondary="Total de Libros" color={theme.palette.primary.main} iconPrimary={Book} />
-              <ReportCard primary={totalBooksUsersLoading ? '0' : list[1].usuarios} secondary="Total de Usuarios" color={theme.palette.info.main} iconPrimary={Profile2User} />
-            </Stack>
+      {[1, 2, 3].includes(user?.categoria) && (
+        <Grid item xs={12} sm={12} md={3} lg={3}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} lg={12}>
+              <Stack spacing={3}>
+                <ReportCard primary={totalBooksUsersLoading ? '0' : list[0].libros} secondary="Total de Libros" color={theme.palette.primary.main} iconPrimary={Book} />
+                <ReportCard primary={totalBooksUsersLoading ? '0' : list[1].usuarios} secondary="Total de Usuarios" color={theme.palette.info.main} iconPrimary={Profile2User} />
+              </Stack>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      )}
       {[1, 2, 3].includes(user?.categoria) && (
         <Grid item xs={12} md={6} lg={6}>
           <RankingUsers />
