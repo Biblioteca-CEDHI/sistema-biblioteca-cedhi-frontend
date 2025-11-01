@@ -136,8 +136,8 @@ function ReactTable({ data, columns, modalToggler }) {
                           onClick={header.column.getToggleSortingHandler()}
                           {...(header.column.getCanSort() &&
                             header.column.columnDef.meta === undefined && {
-                              className: 'cursor-pointer prevent-select'
-                            })}
+                            className: 'cursor-pointer prevent-select'
+                          })}
                         >
                           {header.isPlaceholder ? null : (
                             <Stack direction="row" spacing={1} alignItems="center">
@@ -238,7 +238,7 @@ export default function UserManagementListPage() {
         cell: ({ row, getValue }) => (
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Avatar alt="Avatar" size="sm">
-              {row.original.nombres.charAt(0)}
+              {row.original.nombres?.charAt(0) || ''}
             </Avatar>
             <Stack spacing={0}>
               <Typography variant="subtitle1">{getValue()}</Typography>
@@ -260,9 +260,9 @@ export default function UserManagementListPage() {
         cell: ({ row }) => (
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Stack spacing={0}>
-              { row.original.sexo === 'M' ?
-              <Typography color="text.secondary">Masculino</Typography>
-              : <Typography color="text.secondary">Femenino</Typography>
+              {row.original.sexo === 'M' ?
+                <Typography color="text.secondary">Masculino</Typography>
+                : <Typography color="text.secondary">Femenino</Typography>
               }
             </Stack>
           </Stack>
@@ -315,7 +315,7 @@ export default function UserManagementListPage() {
 
   return (
     <>
-    <Breadcrumbs custom heading="Lista de Usuarios" links={breadcrumbLinks} />
+      <Breadcrumbs custom heading="Lista de Usuarios" links={breadcrumbLinks} />
       <ReactTable
         {...{
           data: lists,
