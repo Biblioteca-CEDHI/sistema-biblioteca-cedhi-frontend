@@ -80,7 +80,7 @@ export const JWTProvider = ({ children }) => {
     localStorage.clear();
     sessionStorage.clear();
 
-    window.location.href = "https://sistema-biblioteca-cedhi-frontend.vercel.app";
+    window.location.href = "https://bibliotecacedhi.infinityfreeapp.com";
   };
 
   if (!state.isInitialized) return <Loader />;
