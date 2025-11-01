@@ -20,7 +20,7 @@ export default function AuthGuard({ children }) {
       //   },
       //   replace: true
       // });
-      window.location.href = 'https://sistema-biblioteca-cedhi-frontend.vercel.app';
+      window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com';
     }
   }, [isLoggedIn, navigate, location]);
 
