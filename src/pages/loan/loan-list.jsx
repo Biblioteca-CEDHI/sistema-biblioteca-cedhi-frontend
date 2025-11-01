@@ -73,6 +73,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
 // ==============================|| REACT TABLE - LIST ||============================== //
 
 function ReactTable({ data, columns }) {
+  const { user } = useAuth();
   const groups = ['Todo', ...new Set(data.map((item) => item.estado))];
 
   const countGroup = data.map((item) => item.estado);
@@ -168,9 +169,11 @@ function ReactTable({ data, columns }) {
 
         <Stack direction="row" alignItems="center" spacing={2}>
           <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
-          <CSVExport
-            {...{ data: table.getSelectedRowModel().flatRows.map((row) => row.original), headers, filename: 'loans-list.csv' }}
-          />
+          {[1, 2, 3].includes(user?.categoria) && (
+            <CSVExport
+              {...{ data: table.getSelectedRowModel().flatRows.map((row) => row.original), headers, filename: 'loans-list.csv' }}
+            />
+          )}
         </Stack>
       </Stack>
       <ScrollX>
@@ -263,48 +266,51 @@ export default function List() {
 
   const columns = useMemo(
     () => [
-      {
-        id: 'Row Selection',
-        header: ({ table }) => (
-          <IndeterminateCheckbox
-            {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler()
-            }}
-          />
-        ),
-        cell: ({ row }) => (
-          <IndeterminateCheckbox
-            {...{
-              checked: row.getIsSelected(),
-              disabled: !row.getCanSelect(),
-              indeterminate: row.getIsSomeSelected(),
-              onChange: row.getToggleSelectedHandler()
-            }}
-          />
-        )
-      },
-      {
-        header: 'Id',
-        accessorKey: 'id_prestamo',
-        meta: { className: 'cell-center' }
-      },
-      {
-        header: 'Usuario',
-        accessorKey: 'nombres',
-        cell: ({ row, getValue }) => (
-          <Stack direction="row" spacing={1.5} alignItems="center">
-            <Avatar alt="Avatar" size="sm">
-              {row.original.nombres.charAt(0)}
-            </Avatar>
-            <Stack spacing={0}>
-              <Typography variant="subtitle1">{getValue()}</Typography>
-              <Typography color="text.secondary">{row.original.email}</Typography>
-            </Stack>
-          </Stack>
-        )
-      },
+      ...([1, 2, 3].includes(user?.categoria)
+        ? [
+          {
+            id: 'Row Selection',
+            header: ({ table }) => (
+              <IndeterminateCheckbox
+                {...{
+                  checked: table.getIsAllRowsSelected(),
+                  indeterminate: table.getIsSomeRowsSelected(),
+                  onChange: table.getToggleAllRowsSelectedHandler()
+                }}
+              />
+            ),
+            cell: ({ row }) => (
+              <IndeterminateCheckbox
+                {...{
+                  checked: row.getIsSelected(),
+                  disabled: !row.getCanSelect(),
+                  indeterminate: row.getIsSomeSelected(),
+                  onChange: row.getToggleSelectedHandler()
+                }}
+              />
+            )
+          },
+        ]
+        : []),
+      ...([1, 2, 3].includes(user?.categoria)
+        ? [
+          {
+            header: 'Usuario',
+            accessorKey: 'nombres',
+            cell: ({ row, getValue }) => (
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                <Avatar alt="Avatar" size="sm">
+                  {row.original.nombres.charAt(0)}
+                </Avatar>
+                <Stack spacing={0}>
+                  <Typography variant="subtitle1">{getValue()}</Typography>
+                  <Typography color="text.secondary">{row.original.email}</Typography>
+                </Stack>
+              </Stack>
+            )
+          },
+        ]
+        : []),
       {
         header: 'Libro',
         accessorKey: 'titulo',

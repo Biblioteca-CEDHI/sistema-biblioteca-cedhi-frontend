@@ -84,8 +84,11 @@ const MainRoutes = {
           children: [
             {
               path: 'list',
-              element: <UserManagementList />
-
+              element: (
+                <ProtectedRoute roleRequired={[1, 2, 3]}>
+                  <UserManagementList />
+                </ProtectedRoute >
+              )
             }
           ]
         },

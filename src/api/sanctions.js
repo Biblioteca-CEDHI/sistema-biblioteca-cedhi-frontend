@@ -8,19 +8,23 @@ const URL = import.meta.env.VITE_APP_API_URL;
 
 export const endpoints = {
   key: '/api/sanction',
+  mySanctions: '/my-sanctions',
   list: '/getSanciones',
   updateRemove: '/removeSanction',
 };
 
 // TRAE TODOS LAS SANCIONES
 
-export function useGetSancions() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.list, fetcher, {
+export function useGetSancions(user) {
+  const endpoint = ([1,2,3].includes(user?.categoria))
+    ? `${URL}${endpoints.key}${endpoints.list}`    
+    : `${URL}${endpoints.key}${endpoints.mySanctions}`;
+  const { data, isLoading, error, isValidating } = useSWR(endpoint, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
-
+  console.log("data: ", data);
   const memoizedValue = useMemo(
     () => ({
       sanctions: data?.sancion,

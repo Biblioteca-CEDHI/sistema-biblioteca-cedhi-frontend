@@ -96,25 +96,25 @@ export default function ProfilePage() {
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
-        <Grid container spacing={2} justifyContent="space-between" alignItems="center">
-          <Grid item xs="auto">
-            <Stack direction="row" spacing={1.25} alignItems="center">
-              <Avatar alt="profile user" src={avatarMale} />
-              <Stack>
-                <Typography variant="subtitle1" color="secondary">{user?.nombre}</Typography>
-                {roles[user?.categoria] && <Typography variant="body2" color="secondary">{roles[user.categoria]}</Typography>}
-              </Stack>
+      <Grid container spacing={2} justifyContent="space-between" alignItems="center">
+        <Grid item xs="auto">
+          <Stack direction="row" spacing={1.25} alignItems="center">
+            <Avatar alt="profile user" src={avatarMale} />
+            <Stack>
+              <Typography variant="subtitle1" color="secondary">{user?.nombre}</Typography>
+              {roles[user?.categoria] && <Typography variant="body2" color="secondary">{roles[user.categoria]}</Typography>}
             </Stack>
-          </Grid>
-
-          <Grid item xs="auto">
-            <Tooltip title="Regresar">
-              <IconButton size="large" sx={{ p: 1 }} onClick={handleLogout}>
-                <Logout variant="Bulk" />
-              </IconButton>
-            </Tooltip>
-          </Grid>
+          </Stack>
         </Grid>
+
+        <Grid item xs="auto">
+          <Tooltip title="Regresar">
+            <IconButton size="large" sx={{ p: 1 }} onClick={handleLogout}>
+              <Logout variant="Bulk" />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

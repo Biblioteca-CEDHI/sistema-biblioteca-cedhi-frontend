@@ -33,7 +33,6 @@ import { Star1 } from 'iconsax-react';
 function ReactTable({ columns, data, title }) {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
-
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState('');
@@ -70,10 +69,10 @@ function ReactTable({ columns, data, title }) {
         <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
           <Typography variant="h5">Ranking de Libros</Typography>
           <DebouncedInput
-          value={globalFilter ?? ''}
-          onFilterChange={(value) => setGlobalFilter(String(value))}
-          placeholder={`Buscar en ${data.length} registros...`}
-        />
+            value={globalFilter ?? ''}
+            onFilterChange={(value) => setGlobalFilter(String(value))}
+            placeholder={`Buscar en ${data.length} registros...`}
+          />
         </Stack>
       </Box>
       <Stack
@@ -109,8 +108,8 @@ function ReactTable({ columns, data, title }) {
                           onClick={header.column.getToggleSortingHandler()}
                           {...(header.column.getCanSort() &&
                             header.column.columnDef.meta === undefined && {
-                              className: 'cursor-pointer prevent-select'
-                            })}
+                            className: 'cursor-pointer prevent-select'
+                          })}
                         >
                           {header.isPlaceholder ? null : (
                             <Stack direction="row" spacing={1} alignItems="center">
@@ -179,10 +178,10 @@ export default function RankingBooks() {
                 alt="Avatar 1"
                 size="lg"
                 variant="rounded"
-                
+
               >
                 {row.original.titulo.charAt(0)}
-                </Avatar>
+              </Avatar>
               <Stack spacing={0}>
                 <Typography variant="subtitle1">{row.original.titulo}</Typography>
               </Stack>
@@ -209,7 +208,7 @@ export default function RankingBooks() {
   return (
     <MainCard content={false}>
       <ScrollX>
-      {rankingBooksLoading ? <EmptyReactTable /> : <ReactTable {...{ data: list, columns, modalToggler: () => {} }} />}
+        {rankingBooksLoading ? <EmptyReactTable /> : <ReactTable {...{ data: list, columns, modalToggler: () => { } }} />}
       </ScrollX>
     </MainCard>
   );

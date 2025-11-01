@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 // project-imports
+import useAuth from '../../../../../hooks/useAuth';
 import NavItem from './NavItem';
 import NavGroup from './NavGroup';
 import menuItem from '../../../../../menu-items';
@@ -27,13 +28,25 @@ export default function Navigation() {
   const { menuMaster } = useGetMenuMaster();
   const drawerOpen = menuMaster.isDashboardDrawerOpened;
 
+  const { user } = useAuth();
+
   const [selectedID, setSelectedID] = useState('');
   const [selectedItems, setSelectedItems] = useState('');
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [menuItems, setMenuItems] = useState({ items: [] });
 
   useLayoutEffect(() => {
-    setMenuItems(menuItem);
+    const filterByRole = (items) => {
+      return items
+        .filter(item => !item.roles || item.roles.includes(user?.categoria))
+        .map(item => ({
+          ...item,
+          children: item.children ? filterByRole(item.children) : []
+        }));
+    };
+
+    const filteredMenu = { items: filterByRole(menuItem.items) };
+    setMenuItems(filteredMenu);
     // eslint-disable-next-line
   }, [menuItem]);
 

@@ -9,6 +9,7 @@ const URL = import.meta.env.VITE_APP_API_URL;
 export const endpoints = {
   key: '/api/booksget',
   list: '/all',
+  myFavorites: '/my-favorites',
   insert: '/addBook',
   update: '/updateBook',
   delete: '/deleteBook'
@@ -86,8 +87,59 @@ export async function deleteBook(bookRegistro) {
   }
 }
 
+// TRAER LIBROS FAVORITOS DEL USUARIO
+export function useFavoriteBooks() {
+  const { data, isLoading, error, isValidating } = useSWR( URL +
+    endpoints.key + endpoints.myFavorites,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  );
+  console.log("favoritos: ", data);
+  const memoizedValue = useMemo(
+    () => ({
+      favoriteBooks: data?.favorites || [],
+      favoriteBooksLoading: isLoading,
+      favoriteBooksError: error,
+      favoriteBooksValidating: isValidating,
+      favoriteBooksEmpty: !isLoading && !data?.favorites?.length
+    }),
+    [data, error, isLoading, isValidating]
+  );
 
+  return memoizedValue;
+}
 
+export async function addFavoriteBook(registro) {
+  const serviceToken = window.localStorage.getItem('serviceToken');
+  try {
+    if (!serviceToken) return;
+    await axios.post(URL + endpoints.key + endpoints.myFavorites, { registro }, {
+      headers: { Authorization: `Bearer ${serviceToken}` }
+    });
+    mutate(URL + endpoints.key + endpoints.myFavorites);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// ELIMINAR LIBRO DE FAVORITOS
+export async function removeFavoriteBook(registro) {
+  const serviceToken = window.localStorage.getItem('serviceToken');
+  try {
+    if (!serviceToken) return;
+    await axios.delete(URL + endpoints.key + endpoints.myFavorites, {
+      headers: { Authorization: `Bearer ${serviceToken}` },
+      data: { registro }
+    });
+    mutate(URL + endpoints.key + endpoints.myFavorites);
+  } catch (error) {
+    console.error(error);
+  }
+}
 // Trae todos los libros
 // export async function getBooks(){
 //   try {
