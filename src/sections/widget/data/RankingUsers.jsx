@@ -180,7 +180,7 @@ export default function RankingUsers() {
                 variant="rounded"
 
               >
-                {row.original.nombres?.charAt(0) || ''}
+                {row.original.nombres?.charAt(0) || 'Sin Nombre'}
               </Avatar>
               <Stack spacing={0}>
                 <Typography variant="subtitle1">{row.original.nombres}</Typography>

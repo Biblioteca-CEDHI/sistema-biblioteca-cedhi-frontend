@@ -82,7 +82,8 @@ export default function Books() {
   const [page, setPage] = useState(1);
   const [bookLoading, setBookLoading] = useState(true);
   const [bookModal, setBookModal] = useState(false);
-  const { favoriteBooks } = useFavoriteBooks();
+  const { favoriteBooks: allFavorites } = useFavoriteBooks();
+  const favoriteBooks = user?.categoria === 4 ? allFavorites : [];
 
   const handleChange = (event) => {
     setSortBy(event.target.value);
@@ -178,7 +179,7 @@ export default function Books() {
               <Grid item xs={12} sm={6} lg={4}>
                 <BookCard
                   book={book}
-                  userFavorites={favoriteBooks || []}
+                  userFavorites={favoriteBooks}
                 />
               </Grid>
             </Slide>
