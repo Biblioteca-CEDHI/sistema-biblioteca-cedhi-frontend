@@ -76,10 +76,10 @@ export const JWTProvider = ({ children }) => {
 
   const logout = () => {
     window.location.href = "https://bibliotecacedhi.infinityfreeapp.com";
-    setSession(null);
-    dispatch({ type: LOGOUT });
-    localStorage.clear();
-    sessionStorage.clear();
+    // setSession(null);
+    // dispatch({ type: LOGOUT });
+    // localStorage.clear();
+    // sessionStorage.clear();
 
   };
 
