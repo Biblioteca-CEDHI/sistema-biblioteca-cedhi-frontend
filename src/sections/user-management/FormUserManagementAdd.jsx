@@ -99,7 +99,6 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
             closeModal();
           });
         } else {
-          console.log("🛠 Llamando a insertUserCedhi con:", newUserManagement);
           await insertUserCedhi(newUserManagement).then(() => {
 
             openSnackbar({
@@ -110,7 +109,6 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
                 color: 'success'
               }
             });
-            console.log("✅ insertUserCedhi terminó");
             setSubmitting(false);
             closeModal();
           });
@@ -137,7 +135,7 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
         </Stack>
       </Box>
     );
-
+  console.log("isSubmitting al render:", isSubmitting);
   return (
     <>
       <FormikProvider value={formik}>
