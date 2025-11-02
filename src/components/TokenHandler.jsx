@@ -26,18 +26,18 @@ export default function TokenHandler() {
             navigate('/dashboard');
           } else {
             alert('Token inválido');
-            window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com/';
+            window.location.href = 'http://localhost/BibliotecaCEDHI';
           }
         } catch (err) {
           console.error('Error validando token:', err);
-          window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com/';
+          window.location.href = 'http://localhost/BibliotecaCEDHI';
         }
       };
 
       loginUser();
     } else {
       console.warn('No se recibió token, redirigiendo a login');
-      window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com/';
+      window.location.href = 'http://localhost/BibliotecaCEDHI';
     }
   }, []);
 

@@ -74,7 +74,7 @@ export const JWTProvider = ({ children }) => {
   };
 
   const returnDasboard = () => {
-    window.location.href = "https://bibliotecacedhi.infinityfreeapp.com";
+    window.location.href = "http://localhost/BibliotecaCEDHI";
     setSession(null);
     dispatch({ type: LOGOUT });
     localStorage.clear();

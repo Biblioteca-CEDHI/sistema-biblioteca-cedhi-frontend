@@ -20,7 +20,7 @@ export default function AuthGuard({ children }) {
       //   },
       //   replace: true
       // });
-      window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com';
+      window.location.href = 'http://localhost/BibliotecaCEDHI';
     }
   }, [isLoggedIn, navigate, location]);
 
