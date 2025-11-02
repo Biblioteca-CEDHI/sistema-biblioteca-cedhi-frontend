@@ -233,7 +233,31 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
                         )}
                       </Stack>
                     </Grid>
-
+                    <Grid item xs={12} sm={6}>
+                      <Stack spacing={1}>
+                        <InputLabel htmlFor="customer-sexo">Género</InputLabel>
+                        <FormControl fullWidth error={Boolean(touched.sexo && errors.sexo)}>
+                          <Select
+                            id="customer-sexo"
+                            displayEmpty
+                            {...getFieldProps('sexo')}
+                            input={<OutlinedInput id="select-sexo" />}
+                            renderValue={(selected) => {
+                              if (!selected) {
+                                return <Typography variant="subtitle1">Seleccione género</Typography>;
+                              }
+                              return <Typography>{selected === 'M' ? 'Masculino' : 'Femenino'}</Typography>;
+                            }}
+                          >
+                            <MenuItem value="M">Masculino</MenuItem>
+                            <MenuItem value="F">Femenino</MenuItem>
+                          </Select>
+                          {touched.sexo && errors.sexo && (
+                            <FormHelperText error>{errors.sexo}</FormHelperText>
+                          )}
+                        </FormControl>
+                      </Stack>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
