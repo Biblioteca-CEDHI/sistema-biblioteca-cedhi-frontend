@@ -1,36 +1,21 @@
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import ButtonBase from '@mui/material/ButtonBase';
-import CardContent from '@mui/material/CardContent';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
 import Stack from '@mui/material/Stack';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 // project-imports
-import ProfileTab from './ProfileTab';
-import SettingTab from './SettingTab';
 import Avatar from '../../../../../components/@extended/Avatar';
-import MainCard from '../../../../../components/MainCard';
-import Transitions from '../../../../../components/@extended/Transitions';
 import IconButton from '../../../../../components/@extended/IconButton';
 
-import { ThemeMode } from '../../../../../config';
 import useAuth from '../../../../../hooks/useAuth';
 
 // assets
-import avatarMale from '../../../../../assets/images/users/default-male-avatar.svg';
 //import avatarFemale from '../../../../../assets/images/users/default-female-avatar.svg';
-import { Setting2, Profile, Logout } from 'iconsax-react';
+import { Logout } from 'iconsax-react';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -48,18 +33,11 @@ function TabPanel({ children, value, index, ...other }) {
   );
 }
 
-function a11yProps(index) {
-  return {
-    id: `profile-tab-${index}`,
-    'aria-controls': `profile-tabpanel-${index}`
-  };
-}
+
 
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 export default function ProfilePage() {
-  const theme = useTheme();
-
   const { logout, user } = useAuth();
 
   const handleLogout = async () => {
@@ -70,24 +48,6 @@ export default function ProfilePage() {
     }
   };
 
-  const anchorRef = useRef(null);
-  const [open, setOpen] = useState(false);
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-    setOpen(false);
-  };
-
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const roles = {
     1: 'Admin',
     2: 'Bibliotecario',
