@@ -121,6 +121,9 @@ export default function Books() {
 
   return (
     <>
+      {console.log("userCard:", userCard)}
+      {console.log("bookLoading:", bookLoading)}
+      {console.log("favoriteBooks:", favoriteBooks)}
       <Box sx={{ position: 'relative', marginBottom: 3 }}>
         <Stack direction="row" alignItems="center">
           <Stack
