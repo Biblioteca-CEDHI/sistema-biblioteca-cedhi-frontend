@@ -89,8 +89,7 @@ export async function deleteBook(bookRegistro) {
 
 // TRAER LIBROS FAVORITOS DEL USUARIO
 export function useFavoriteBooks() {
-  const { data, isLoading, error, isValidating } = useSWR( URL +
-    endpoints.key + endpoints.myFavorites,
+  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.myFavorites,
     fetcher,
     {
       revalidateIfStale: false,
