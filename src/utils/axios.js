@@ -1,5 +1,4 @@
 import axios from 'axios';
-console.log("AXIOS BASE URL:", import.meta.env.VITE_APP_API_URL);
 
 const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'https://sistema-biblioteca-cedhi-backend.onrender.com' });
 
