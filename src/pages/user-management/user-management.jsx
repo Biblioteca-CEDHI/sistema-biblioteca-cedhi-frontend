@@ -238,7 +238,7 @@ export default function UserManagementListPage() {
         cell: ({ row, getValue }) => (
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Avatar alt="Avatar" size="sm">
-              {row.original.nombres?.charAt(0) || 'Sin Nombre'}
+              {row.original.nombres?.charAt(0) || ''}
             </Avatar>
             <Stack spacing={0}>
               <Typography variant="subtitle1">{getValue()}</Typography>

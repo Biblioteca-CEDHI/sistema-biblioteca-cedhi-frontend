@@ -98,14 +98,15 @@ export function useFavoriteBooks() {
       revalidateOnReconnect: false
     }
   );
-  console.log("favoritos: ", data);
+  console.log("favoritos (raw data): ", JSON.stringify(data, null, 2));
   const memoizedValue = useMemo(
     () => ({
       favoriteBooks: data?.favorites || [],
       favoriteBooksLoading: isLoading,
       favoriteBooksError: error,
       favoriteBooksValidating: isValidating,
-      favoriteBooksEmpty: !isLoading && !data?.favorites?.length
+      favoriteBooksEmpty: !isLoading && !(data?.favorites || []).length
+
     }),
     [data, error, isLoading, isValidating]
   );
