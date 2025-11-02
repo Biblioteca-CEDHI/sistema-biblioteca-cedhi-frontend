@@ -4,14 +4,11 @@ import axios from '../utils/axios';
 import JWTContext from '../contexts/JWTContext';
 
 export default function TokenHandler() {
-  console.log('TokenHandler ejecutándose');
-  console.log('Params:', window.location.search);
   const { loginFromToken } = useContext(JWTContext);
   const navigate = useNavigate();
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
-    console.log("Token recibido:", token);
     if (token) {
       const loginUser = async () => {
         try {
@@ -21,7 +18,6 @@ export default function TokenHandler() {
               ...response.data.user,
               token
             };
-            console.log('Token decodificado:', userData);
             loginFromToken(userData);
             navigate('/dashboard');
           } else {

@@ -29,10 +29,7 @@ export function useGetLoans(user) {
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
-  console.log("endpoint: ", endpoint);
-  console.log("data: ", data);
-  console.log("error: ", error);
-
+  
   const memoizedValue = useMemo(
     () => ({
       loans: data?.loans,

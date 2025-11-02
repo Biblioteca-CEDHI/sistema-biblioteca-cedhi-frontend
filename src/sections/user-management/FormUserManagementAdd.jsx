@@ -82,7 +82,6 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
     validationSchema: UserManagementSchema,
     enableReinitialize: true,
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("onSubmit llamado con values:", values);
       try {
         let newUserManagement = values;
         if (userManagement) {
@@ -135,9 +134,6 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
         </Stack>
       </Box>
     );
-  console.log("isSubmitting al render:", isSubmitting);
-  console.log("¿Formulario válido?", formik.isValid);
-  console.log("¿Puede enviarse?", !isSubmitting && formik.isValid && formik.dirty);
   return (
     <>
       <FormikProvider value={formik}>
