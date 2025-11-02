@@ -10,12 +10,6 @@ import Avatar from '../../../../components/@extended/Avatar';
 import useAuth from '../../../../hooks/useAuth';
 import { useGetMenuMaster } from '../../../../api/menu';
 
-// assets
-
-import avatarMale from '../../../../assets/images/users/default-male-avatar.svg';
-//import avatarFemale from '../../../../assets/images/users/default-female-avatar.svg';
-
-
 // ==============================|| LIST - USER ||============================== //
 
 export default function UserList() {
@@ -44,7 +38,9 @@ export default function UserList() {
           }}
         >
           <ListItemAvatar>
-            <Avatar alt="Avatar" src={avatarMale} sx={{ ...(drawerOpen && { width: 46, height: 46 }) }} />
+            <Avatar alt="Avatar" sx={{ ...(drawerOpen && { width: 46, height: 46 }) }}>
+              {user.nombre?.charAt(0) || ''}
+            </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary={user?.nombre}

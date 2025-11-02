@@ -99,7 +99,9 @@ export default function ProfilePage() {
       <Grid container spacing={2} justifyContent="space-between" alignItems="center">
         <Grid item xs="auto">
           <Stack direction="row" spacing={1.25} alignItems="center">
-            <Avatar alt="profile user" src={avatarMale} />
+            <Avatar alt="Avatar">
+              {user.nombre?.charAt(0) || ''}
+            </Avatar>
             <Stack>
               <Typography variant="subtitle1" color="secondary">{user?.nombre}</Typography>
               {roles[user?.categoria] && <Typography variant="body2" color="secondary">{roles[user.categoria]}</Typography>}

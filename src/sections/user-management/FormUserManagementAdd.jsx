@@ -244,7 +244,7 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
                             input={<OutlinedInput id="select-sexo" />}
                             renderValue={(selected) => {
                               if (!selected) {
-                                return <Typography variant="subtitle1">Seleccione género</Typography>;
+                                return <Typography variant="subtitle2">Seleccione género</Typography>;
                               }
                               return <Typography>{selected === 'M' ? 'Masculino' : 'Femenino'}</Typography>;
                             }}
