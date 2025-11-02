@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 // project-imports
+import Loader from '../../../../../components/Loader';
 import Avatar from '../../../../../components/@extended/Avatar';
 import IconButton from '../../../../../components/@extended/IconButton';
 
@@ -54,6 +55,7 @@ export default function ProfilePage() {
     3: 'Tutor'
   };
 
+  if (!user) return <Loader />;
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <Grid container spacing={2} justifyContent="space-between" alignItems="center">

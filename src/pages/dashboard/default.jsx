@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
 // project-imports
+import Loader from '../../components/Loader';
 import useAuth from '../../hooks/useAuth';
 import ReportCard from '../../components/cards/statistics/ReportCard';
 import RankingUsers from '../../sections/widget/data/RankingUsers';
@@ -22,7 +23,7 @@ export default function DashboardDefault() {
   const theme = useTheme();
   const { user } = useAuth();
   const { totalBooksUsersLoading, totalBooksUsers: list } = useGetTotalBooksUsers();
-
+  if (!user) return <Loader />;
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
 

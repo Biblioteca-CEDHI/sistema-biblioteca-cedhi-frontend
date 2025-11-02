@@ -16,7 +16,7 @@ export const endpoints = {
 // TRAE TODOS LAS SANCIONES
 
 export function useGetSancions(user) {
-  const endpoint = ([1,2,3].includes(user?.categoria))
+  const endpoint = ([1,2,3].includes(user?.categoria || ''))
     ? `${URL}${endpoints.key}${endpoints.list}`    
     : `${URL}${endpoints.key}${endpoints.mySanctions}`;
   const { data, isLoading, error, isValidating } = useSWR(endpoint, fetcher, {
