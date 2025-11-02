@@ -82,6 +82,7 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
     validationSchema: UserManagementSchema,
     enableReinitialize: true,
     onSubmit: async (values, { setSubmitting }) => {
+      console.log("onSubmit llamado con values:", values);
       try {
         let newUserManagement = values;
         if (userManagement) {
@@ -98,7 +99,9 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
             closeModal();
           });
         } else {
+          console.log("🛠 Llamando a insertUserCedhi con:", newUserManagement);
           await insertUserCedhi(newUserManagement).then(() => {
+
             openSnackbar({
               open: true,
               message: 'El usuario fue agregado exitosamente.',
@@ -107,6 +110,7 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
                 color: 'success'
               }
             });
+            console.log("✅ insertUserCedhi terminó");
             setSubmitting(false);
             closeModal();
           });
