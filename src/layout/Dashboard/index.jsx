@@ -18,7 +18,7 @@ import Breadcrumbs from '../../components/@extended/Breadcrumbs';
 import AuthGuard from '../../utils/route-guard/AuthGuard';
 
 import { DRAWER_WIDTH, MenuOrientation } from '../../config';
-import useAuth from '../../../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import useConfig from '../../hooks/useConfig';
 import { handlerDrawerOpen, useGetMenuMaster } from '../../api/menu';
 
