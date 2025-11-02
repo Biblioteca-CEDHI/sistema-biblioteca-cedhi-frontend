@@ -56,7 +56,6 @@ export const JWTProvider = ({ children }) => {
   }, []);
 
 
-  // Login desde token (PHP)
   const loginFromToken = (userData) => {
     setSession(userData.token);
     dispatch({
@@ -74,18 +73,18 @@ export const JWTProvider = ({ children }) => {
     });
   };
 
-  const logout = () => {
+  const returnDasboard = () => {
     window.location.href = "https://bibliotecacedhi.infinityfreeapp.com";
-    // setSession(null);
-    // dispatch({ type: LOGOUT });
-    // localStorage.clear();
-    // sessionStorage.clear();
+    setSession(null);
+    dispatch({ type: LOGOUT });
+    localStorage.clear();
+    sessionStorage.clear();
 
   };
 
   if (!state.isInitialized) return <Loader />;
   return (
-    <JWTContext.Provider value={{ ...state, loginFromToken, logout }}>
+    <JWTContext.Provider value={{ ...state, loginFromToken, returnDasboard }}>
       {children}
     </JWTContext.Provider>
   );

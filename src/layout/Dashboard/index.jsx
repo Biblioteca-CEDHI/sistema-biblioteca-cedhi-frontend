@@ -18,6 +18,7 @@ import Breadcrumbs from '../../components/@extended/Breadcrumbs';
 import AuthGuard from '../../utils/route-guard/AuthGuard';
 
 import { DRAWER_WIDTH, MenuOrientation } from '../../config';
+import useAuth from '../../../../hooks/useAuth';
 import useConfig from '../../hooks/useConfig';
 import { handlerDrawerOpen, useGetMenuMaster } from '../../api/menu';
 
@@ -25,7 +26,7 @@ import { handlerDrawerOpen, useGetMenuMaster } from '../../api/menu';
 
 export default function MainLayout() {
   const theme = useTheme();
-
+  const { user } = useAuth();
   const { menuMasterLoading } = useGetMenuMaster();
   const downXL = useMediaQuery(theme.breakpoints.down('xl'));
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
@@ -42,7 +43,7 @@ export default function MainLayout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [downXL]);
 
-  if (menuMasterLoading) return <Loader />;
+  if (menuMasterLoading || !user) return <Loader />;
 
   return (
     <AuthGuard>

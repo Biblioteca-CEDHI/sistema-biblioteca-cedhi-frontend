@@ -6,11 +6,11 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 
 // project import
-import Loader from '../../../../components/Loader';
 import Avatar from '../../../../components/@extended/Avatar';
 import useAuth from '../../../../hooks/useAuth';
 import { useGetMenuMaster } from '../../../../api/menu';
 
+// assets
 // ==============================|| LIST - USER ||============================== //
 
 export default function UserList() {
@@ -27,7 +27,7 @@ export default function UserList() {
     2: 'Bibliotecario',
     3: 'Tutor'
   };
-  if (!user) return <Loader />;
+
   return (
     <Box sx={{ p: 1.25, px: !drawerOpen ? 1.25 : 3, borderTop: '2px solid ', borderTopColor: 'divider' }}>
       <List disablePadding>

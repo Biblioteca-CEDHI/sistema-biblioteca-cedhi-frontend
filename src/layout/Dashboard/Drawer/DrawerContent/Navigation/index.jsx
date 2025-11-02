@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 // project-imports
-import Loader from '../../../../../components/Loader';
 import useAuth from '../../../../../hooks/useAuth';
 import NavItem from './NavItem';
 import NavGroup from './NavGroup';
@@ -106,7 +105,6 @@ export default function Navigation() {
     }
   });
 
-  if (!user) return <Loader />;
   return (
     <Box
       sx={{

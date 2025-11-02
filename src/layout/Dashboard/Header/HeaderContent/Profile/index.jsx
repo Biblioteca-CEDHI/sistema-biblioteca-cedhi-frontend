@@ -8,7 +8,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 // project-imports
-import Loader from '../../../../../components/Loader';
 import Avatar from '../../../../../components/@extended/Avatar';
 import IconButton from '../../../../../components/@extended/IconButton';
 
@@ -39,11 +38,11 @@ function TabPanel({ children, value, index, ...other }) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 export default function ProfilePage() {
-  const { logout, user } = useAuth();
+  const { returnDasboard, user } = useAuth();
 
   const handleLogout = async () => {
     try {
-      logout();
+      returnDasboard();
     } catch (err) {
       console.error(err);
     }
@@ -55,7 +54,6 @@ export default function ProfilePage() {
     3: 'Tutor'
   };
 
-  if (!user) return <Loader />;
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <Grid container spacing={2} justifyContent="space-between" alignItems="center">
