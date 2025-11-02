@@ -89,7 +89,7 @@ export async function deleteBook(bookRegistro) {
 
 // TRAER LIBROS FAVORITOS DEL USUARIO
 export function useFavoriteBooks() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.myFavorites,
+  const { data, isLoading, error, isValidating } = useSWR( URL + endpoints.key + endpoints.myFavorites,
     fetcher,
     {
       revalidateIfStale: false,
@@ -97,7 +97,6 @@ export function useFavoriteBooks() {
       revalidateOnReconnect: false
     }
   );
-  console.log("favoritos (raw data): ", JSON.stringify(data, null, 2));
   const memoizedValue = useMemo(
     () => ({
       favoriteBooks: data?.favorites || [],
@@ -105,7 +104,6 @@ export function useFavoriteBooks() {
       favoriteBooksError: error,
       favoriteBooksValidating: isValidating,
       favoriteBooksEmpty: !isLoading && !(data?.favorites || []).length
-
     }),
     [data, error, isLoading, isValidating]
   );
@@ -118,7 +116,7 @@ export async function addFavoriteBook(registro) {
   try {
     if (!serviceToken) return;
     await axios.post(URL + endpoints.key + endpoints.myFavorites, { registro }, {
-      headers: { Authorization: `Bearer ${serviceToken}` }
+      headers: { authorization: serviceToken }
     });
     mutate(URL + endpoints.key + endpoints.myFavorites);
   } catch (error) {
