@@ -136,6 +136,8 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
       </Box>
     );
   console.log("isSubmitting al render:", isSubmitting);
+  console.log("¿Formulario válido?", formik.isValid);
+  console.log("¿Puede enviarse?", !isSubmitting && formik.isValid && formik.dirty);
   return (
     <>
       <FormikProvider value={formik}>
