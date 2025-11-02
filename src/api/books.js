@@ -115,9 +115,8 @@ export async function addFavoriteBook(registro) {
   const serviceToken = window.localStorage.getItem('serviceToken');
   try {
     if (!serviceToken) return;
-    await axios.post(URL + endpoints.key + endpoints.myFavorites, {
-      headers: { Authorization: `Bearer ${serviceToken}` },
-      data: { registro }
+    await axios.post(URL + endpoints.key + endpoints.myFavorites, { registro }, {
+      headers: { Authorization: `Bearer ${serviceToken}` }
     });
     mutate(URL + endpoints.key + endpoints.myFavorites);
   } catch (error) {
