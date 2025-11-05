@@ -20,18 +20,18 @@ const auth = (state = initialState, action) => {
       };
     }
     case LOGIN: {
-      const { user } = action.payload;
       return {
         ...state,
         isLoggedIn: true,
-        isInitialized: true,
-        user
+        isInitialized: action.payload.isInitialized ?? true,
+        user: action.payload.user
       };
     }
+
     case LOGOUT: {
       return {
         ...state,
-        isInitialized: true,
+        isInitialized: action.payload?.isInitialized ?? true,
         isLoggedIn: false,
         user: null
       };
