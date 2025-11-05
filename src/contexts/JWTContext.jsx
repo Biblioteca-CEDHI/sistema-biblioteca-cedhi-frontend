@@ -27,8 +27,9 @@ export const JWTProvider = ({ children }) => {
   useEffect(() => {
     const init = async () => {
       const token = localStorage.getItem('serviceToken');
+
       if (!token) {
-        dispatch({ type: LOGOUT, payload: { isInitialized: true } });
+        dispatch({ type: LOGOUT });
         return;
       }
 
@@ -38,16 +39,22 @@ export const JWTProvider = ({ children }) => {
         const response = await axios.post('/api/auth/token-login', { token });
         const { success, user } = response.data;
 
-        dispatch({
-          type: success ? LOGIN : LOGOUT,
-          payload: {
-            isInitialized: true,
-            ...(success && { user, isLoggedIn: true })
-          }
-        });
+        if (success) {
+          dispatch({
+            type: LOGIN,
+            payload: {
+              user,
+              isLoggedIn: true,
+              isInitialized: true
+            }
+          });
+        } else {
+          dispatch({ type: LOGOUT });
+        }
+
       } catch (err) {
         console.error('Error validando token:', err);
-        dispatch({ type: LOGOUT, payload: { isInitialized: true } });
+        dispatch({ type: LOGOUT });
       }
     };
 
@@ -68,7 +75,8 @@ export const JWTProvider = ({ children }) => {
           nombre: userData.nombre || '',
           apellido: userData.apellido || '',
           categoria: userData.categoria
-        }
+        },
+        isInitialized: true
       }
     });
   };
