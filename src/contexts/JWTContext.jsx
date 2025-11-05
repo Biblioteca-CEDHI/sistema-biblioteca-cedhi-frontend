@@ -26,34 +26,34 @@ export const JWTProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
   useEffect(() => {
     const init = async () => {
+      const token = localStorage.getItem('serviceToken');
+      if (!token) {
+        dispatch({ type: LOGOUT, payload: { isInitialized: true } });
+        return;
+      }
+
+      setSession(token);
+
       try {
-        const token = localStorage.getItem('serviceToken');
-        if (token) {
-          setSession(token);
-          const response = await axios.post('/api/auth/token-login', { token });
-          if (response.data.success) {
-            const user = response.data.user;
-            dispatch({
-              type: LOGIN,
-              payload: {
-                isLoggedIn: true,
-                user
-              }
-            });
-          } else {
-            dispatch({ type: LOGOUT });
+        const response = await axios.post('/api/auth/token-login', { token });
+        const { success, user } = response.data;
+
+        dispatch({
+          type: success ? LOGIN : LOGOUT,
+          payload: {
+            isInitialized: true,
+            ...(success && { user, isLoggedIn: true })
           }
-        } else {
-          dispatch({ type: LOGOUT });
-        }
+        });
       } catch (err) {
         console.error('Error validando token:', err);
-        dispatch({ type: LOGOUT });
+        dispatch({ type: LOGOUT, payload: { isInitialized: true } });
       }
     };
 
     init();
   }, []);
+
 
 
   const loginFromToken = (userData) => {
