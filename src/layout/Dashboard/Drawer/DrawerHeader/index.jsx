@@ -32,8 +32,8 @@ export default function DrawerHeader({ open }) {
       }}
     >
       <Stack direction="column" spacing={0.9} alignItems="center">
-      <h1>CEDHI</h1>
-      <h5>Biblioteca</h5>
+        <h1>CEDHI</h1>
+        <h5>Sala de Lectura</h5>
       </Stack>
     </DrawerHeaderStyled>
   );
