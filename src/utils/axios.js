@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'https://sistema-biblioteca-cedhi-backend.onrender.com' });
+const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'http://localhost:3000' });
 
 // ==============================|| AXIOS - FOR MOCK SERVICES ||============================== //
 
@@ -20,15 +20,10 @@ axiosServices.interceptors.request.use(
 axiosServices.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (!error.response) {
-      return Promise.reject(error);
+    if (error.response.status === 401 && !window.location.href.includes('/login')) {
+      window.location.pathname = '/maintenance/500';
     }
-
-    if (error.response.status === 401) {
-      // localStorage.removeItem('serviceToken');
-    }
-
-    return Promise.reject(error.response.data || error);
+    return Promise.reject((error.response && error.response.data) || 'Wrong Services');
   }
 );
 
