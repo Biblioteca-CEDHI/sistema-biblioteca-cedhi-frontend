@@ -23,7 +23,7 @@ export default function WelcomeBanner() {
   const abrirMensaje = () => {
     openSnackbar({
       open: true,
-      message: 'Bienvenido a la Biblioteca Vitual CEDHI',
+      message: 'Bienvenido a la Sala de Lectura CEDHI',
       variant: 'alert',
 
       alert: {
@@ -34,28 +34,28 @@ export default function WelcomeBanner() {
 
   return (
     <MainCard
-    border={false}
-    sx={{
-      color: 'common.white',
-      bgcolor: theme.palette.mode === ThemeMode.DARK ? 'primary.400' : 'primary.darker',
-      '&:after': {
-        content: '""',
-        background: `url("${cardBack}") 100% 100% / cover no-repeat`,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 1,
-        opacity: 0.5
-      }
-    }}
+      border={false}
+      sx={{
+        color: 'common.white',
+        bgcolor: theme.palette.mode === ThemeMode.DARK ? 'primary.400' : 'primary.darker',
+        '&:after': {
+          content: '""',
+          background: `url("${cardBack}") 100% 100% / cover no-repeat`,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 1,
+          opacity: 0.5
+        }
+      }}
     >
       <Grid container>
         <Grid item md={6} sm={6} xs={12}>
           <Stack spacing={2} sx={{ padding: 3 }}>
             <Typography variant="h2" color={theme.palette.background.paper}>
-              Biblioteca Vitual CEDHI
+              Sala de Lectura CEDHI
             </Typography>
             <Typography variant="h6" color={theme.palette.background.paper}>
               La nueva interfaz de usuario con el poder de los componentes Material-UI.
