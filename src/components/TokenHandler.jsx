@@ -12,7 +12,7 @@ export default function TokenHandler() {
     const token = params.get('token');
 
     if (!token) {
-      window.location.href = 'http://localhost/BibliotecaCEDHI';
+      window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com';
       return;
     }
 
@@ -28,11 +28,11 @@ export default function TokenHandler() {
 
           navigate('/dashboard', { replace: true });
         } else {
-          window.location.href = 'http://localhost/BibliotecaCEDHI';
+          window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com';
         }
       })
       .catch(() => {
-        window.location.href = 'http://localhost/BibliotecaCEDHI';
+        window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com';
       });
 
 

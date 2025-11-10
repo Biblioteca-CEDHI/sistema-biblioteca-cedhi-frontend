@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'http://localhost:3000' });
+const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'https://sistema-biblioteca-cedhi-backend.onrender.com' });
 
 // ==============================|| AXIOS - FOR MOCK SERVICES ||============================== //
 
