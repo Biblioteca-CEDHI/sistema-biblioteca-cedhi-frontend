@@ -14,13 +14,12 @@ import { useGetMenuMaster } from '../../../../api/menu';
 // ==============================|| LIST - USER ||============================== //
 
 export default function UserList() {
-  //const navigate = useNavigate();
-
   const { menuMaster } = useGetMenuMaster();
   const drawerOpen = menuMaster.isDashboardDrawerOpened;
 
   const { user } = useAuth();
 
+  if (!user) return null;
 
   const roles = {
     1: 'Administrador',

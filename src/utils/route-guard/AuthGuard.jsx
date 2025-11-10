@@ -1,29 +1,28 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
-// project-imports
 import useAuth from '../../hooks/useAuth';
 
-// ==============================|| AUTH GUARD ||============================== //
-
 export default function AuthGuard({ children }) {
-  const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { isLoggedIn, isInitialized, user } = useAuth();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      // navigate('/', {
-      //   state: {
-      //     from: location.pathname
-      //   },
-      //   replace: true
-      // });
-      window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com';
-    }
-  }, [isLoggedIn, navigate, location]);
+  console.log("✅ AUTHGUARD DEBUG:");
+  console.log("isInitialized:", isInitialized);
+  console.log("isLoggedIn:", isLoggedIn);
+  console.log("user:", user);
 
+  // ✅ NO redirigir hasta que termine la validación
+  if (!isInitialized) {
+    console.log("⏳ Esperando inicialización…");
+    return null;
+  }
+
+  // ✅ Después de inicializado, si NO está logueado → redirigir
+  if (!isLoggedIn) {
+    console.log("❌ No logueado → redirigiendo a PHP dashboard");
+    window.location.href = 'http://localhost/BibliotecaCEDHI';
+    return null;
+  }
+
+  console.log("✅ Logueado, mostrando contenido.");
   return children;
 }
 

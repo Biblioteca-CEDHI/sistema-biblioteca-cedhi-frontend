@@ -29,7 +29,10 @@ export const JWTProvider = ({ children }) => {
       const token = localStorage.getItem('serviceToken');
 
       if (!token) {
-        dispatch({ type: LOGOUT });
+        dispatch({
+          type: LOGOUT,
+          payload: { isInitialized: true }
+        });
         return;
       }
 
@@ -49,12 +52,18 @@ export const JWTProvider = ({ children }) => {
             }
           });
         } else {
-          dispatch({ type: LOGOUT });
+          dispatch({
+            type: LOGOUT,
+            payload: { isInitialized: true }
+          });
         }
 
       } catch (err) {
         console.error('Error validando token:', err);
-        dispatch({ type: LOGOUT });
+        dispatch({
+          type: LOGOUT,
+          payload: { isInitialized: true }
+        });
       }
     };
 
@@ -82,12 +91,11 @@ export const JWTProvider = ({ children }) => {
   };
 
   const returnDasboard = () => {
-    window.location.href = "https://bibliotecacedhi.infinityfreeapp.com";
+    window.location.href = "http://localhost/BibliotecaCEDHI";
     setSession(null);
     dispatch({ type: LOGOUT });
     localStorage.clear();
     sessionStorage.clear();
-
   };
 
   if (!state.isInitialized) return <Loader />;

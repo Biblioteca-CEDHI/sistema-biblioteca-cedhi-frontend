@@ -40,6 +40,8 @@ function TabPanel({ children, value, index, ...other }) {
 export default function ProfilePage() {
   const { returnDasboard, user } = useAuth();
 
+  if (!user) return null;
+
   const handleLogout = async () => {
     try {
       returnDasboard();
