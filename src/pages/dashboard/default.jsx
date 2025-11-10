@@ -21,6 +21,9 @@ import WelcomeBanner from '../../sections/dashboard/WelcomeBanner';
 export default function DashboardDefault() {
   const theme = useTheme();
   const { user } = useAuth();
+
+  if (!user) return null;
+
   const { totalBooksUsersLoading, totalBooksUsers: list } = useGetTotalBooksUsers();
 
   return (

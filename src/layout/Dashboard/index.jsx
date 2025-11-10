@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -26,7 +27,7 @@ import { handlerDrawerOpen, useGetMenuMaster } from '../../api/menu';
 
 export default function MainLayout() {
   const theme = useTheme();
-  const { user } = useAuth();
+  const { user, isInitialized } = useAuth();
   const { menuMasterLoading } = useGetMenuMaster();
   const downXL = useMediaQuery(theme.breakpoints.down('xl'));
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
@@ -43,7 +44,11 @@ export default function MainLayout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [downXL]);
 
-  if (menuMasterLoading || !user) return <Loader />;
+  if (!isInitialized) return <Loader />;
+  if (menuMasterLoading) return <Loader />;
+
+  //if (!user) return <Navigate to="/" replace />;
+  //if (menuMasterLoading || !user) return <Loader />;
 
   return (
     <AuthGuard>
