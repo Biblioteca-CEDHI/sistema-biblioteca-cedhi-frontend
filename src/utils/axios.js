@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'https://sistema-biblioteca-cedhi-backend.onrender.com' });
+const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'http://api.salalectura.cedhinuevaarequipa.edu.pe' });
 
 // ==============================|| AXIOS - FOR MOCK SERVICES ||============================== //
 
