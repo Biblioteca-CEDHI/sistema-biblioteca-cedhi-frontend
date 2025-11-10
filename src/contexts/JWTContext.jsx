@@ -91,7 +91,7 @@ export const JWTProvider = ({ children }) => {
   };
 
   const returnDasboard = () => {
-    window.location.href = "https://bibliotecacedhi.infinityfreeapp.com";
+    window.location.href = "https://biblioteca.cedhinuevaarequipa.edu.pe";
     setSession(null);
     dispatch({ type: LOGOUT });
     localStorage.clear();

@@ -18,7 +18,7 @@ export default function AuthGuard({ children }) {
   // ✅ Después de inicializado, si NO está logueado → redirigir
   if (!isLoggedIn) {
     console.log("❌ No logueado → redirigiendo a PHP dashboard");
-    window.location.href = 'https://bibliotecacedhi.infinityfreeapp.com';
+    window.location.href = 'https://biblioteca.cedhinuevaarequipa.edu.pe';
     return null;
   }
 
