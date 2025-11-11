@@ -34,6 +34,10 @@ const allCategorys = [
   { value: 3, label: 'Tutor' }
 ];
 
+const allGender = [
+  { value: 'M', label: 'Masculino' },
+  { value: 'F', label: 'Femenino' },
+]
 
 // ==============================|| USER PROFILE - PERSONAL ||============================== //
 
@@ -49,6 +53,7 @@ export default function TabPersonal() {
           lastname: user?.apellidos || '',
           email: user?.email || '',
           categoria: user?.categoria || '',
+          gender: user?.sexo || '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -56,6 +61,7 @@ export default function TabPersonal() {
           lastname: Yup.string().max(255).required('El apellido es obligatorio.'),
           email: Yup.string().email('Dirección de correo electrónico no válida.').max(255).required('El correo es obligatorio.'),
           categoria: Yup.number().required('El cargo es obligatorio'),
+          gender: Yup.string().max(15).required('El género es obligatorio.'),
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -182,6 +188,42 @@ export default function TabPersonal() {
                   </Stack>
                 </Grid>
 
+                <Grid item xs={12} sm={6}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="personal-genero">Género</InputLabel>
+                    <FormControl fullWidth>
+                      <Select
+                        id="personal-genero"
+                        name="gender"
+                        displayEmpty
+                        value={values.gender}
+                        onChange={handleChange}
+                        input={<OutlinedInput id="select-personal-genero" placeholder="Sort by" />}
+                        renderValue={(selected) => {
+                          if (!selected) {
+                            return <Typography variant="subtitle2">Selecciona Género</Typography>;
+                          }
+
+                          const selectedStatus = allGender.filter((item) => item.value === (selected));
+                          return (
+                            <Typography variant="subtitle2">{selectedStatus.length > 0 ? selectedStatus[0].label : 'Pending'}</Typography>
+                          );
+                        }}
+                      >
+                        {allGender.map((column) => (
+                          <MenuItem key={column.value} value={column.value}>
+                            <ListItemText primary={column.label} />
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    {touched.gender && errors.gender && (
+                      <FormHelperText error id="standard-weight-helper-text-personal-genero-login" sx={{ pl: 1.75 }}>
+                        {errors.gender}
+                      </FormHelperText>
+                    )}
+                  </Stack>
+                </Grid>
               </Grid>
             </Box>
             <Box sx={{ p: 2.5 }}>

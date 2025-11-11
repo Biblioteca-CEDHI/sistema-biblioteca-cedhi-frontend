@@ -10,6 +10,9 @@ import DrawerHeaderStyled from './DrawerHeaderStyled';
 import { DRAWER_WIDTH, HEADER_HEIGHT, MenuOrientation } from '../../../../config';
 import useConfig from '../../../../hooks/useConfig';
 
+//assets
+import Logo from '../../../../assets/images/logo/logotipoCEDHI.png';
+
 // ==============================|| DRAWER HEADER ||============================== //
 
 export default function DrawerHeader({ open }) {
@@ -31,10 +34,40 @@ export default function DrawerHeader({ open }) {
         paddingLeft: isHorizontal ? { xs: '24px', lg: '0' } : open ? '24px' : 0
       }}
     >
-      <Stack direction="column" spacing={0.9} alignItems="center">
-        <h1>CEDHI</h1>
-        <h5>Sala de Lectura</h5>
-      </Stack>
+      {open ? (
+        <Stack direction="row" spacing={0.9} alignItems="center">
+          <img
+            src={Logo}
+            alt="CEDHI Logo"
+            style={{
+              width: 32,
+              height: 'auto',
+              filter:
+                theme.palette.mode === 'dark'
+                  ? 'invert(0) brightness(1.2) contrast(1.1)'
+                  : 'invert(1)'
+            }}
+          />
+          <Stack direction="column" spacing={0} alignItems="flex-start">
+            <h1 style={{ margin: 5 }}>CEDHI</h1>
+          </Stack>
+        </Stack>
+      ) : (
+        <Stack direction="row" spacing={0.9} alignItems="center">
+          <img
+            src={Logo}
+            alt="CEDHI Logo"
+            style={{
+              width: 32,
+              height: 'auto',
+              filter:
+                theme.palette.mode === 'dark'
+                  ? 'invert(0) brightness(1.2) contrast(1.1)'
+                  : 'invert(1)'
+            }}
+          />
+        </Stack>
+      )}
     </DrawerHeaderStyled>
   );
 }

@@ -61,7 +61,7 @@ import { NoteRemove } from 'iconsax-react';
 
 function ReactTable({ data, columns }) {
   const { user } = useAuth();
-  const [sorting, setSorting] = useState([{ id: 'nombres', desc: false }]);
+  const [sorting, setSorting] = useState([{ id: 'createdAt', desc: true }]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState('');
@@ -235,12 +235,12 @@ export default function CustomerListPage() {
       ...([1, 2, 3].includes(user?.categoria)
         ? [
           {
-            header: 'Usuario',
-            accessorKey: 'nombres',
+            header: 'DNI Usuario',
+            accessorKey: 'id_usuario',
             cell: ({ row }) => (
               <Stack direction="row" spacing={1.5} alignItems="center">
                 <Stack spacing={0}>
-                  <Typography variant="subtitle1">DNI: {row.original.id_usuario}</Typography>
+                  <Typography variant="subtitle1">{row.original.id_usuario}</Typography>
                 </Stack>
               </Stack>
             )

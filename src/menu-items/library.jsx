@@ -18,7 +18,7 @@ const icons = {
 
 const components = {
   id: 'group-library',
-  title: <FormattedMessage id="library" />,
+  title: <FormattedMessage id="reading-room" />,
   icon: icons.navigation,
   type: 'group',
   children: [

@@ -23,7 +23,7 @@ export default function AlertSanctionDesactivate({ id, title, open, handleClose 
     await updateRemoveSancions(id).then(() => {
       openSnackbar({
         open: true,
-        message: 'Customer deleted successfully',
+        message: 'Sanción eliminada exitosamente',
         anchorOrigin: { vertical: 'top', horizontal: 'right' },
         variant: 'alert',
 
@@ -53,14 +53,6 @@ export default function AlertSanctionDesactivate({ id, title, open, handleClose 
           <Stack spacing={2}>
             <Typography variant="h4" align="center">
               ¿Estás seguro de que quieres remover la sanción?
-            </Typography>
-            <Typography align="center">
-              Al remover la sancion
-              <Typography variant="subtitle1" component="span">
-                {' '}
-                &quot;{title}&quot;{' '}
-              </Typography>
-              , también se eliminarán los datos de la sanción asignadas a ese usuario.
             </Typography>
           </Stack>
 

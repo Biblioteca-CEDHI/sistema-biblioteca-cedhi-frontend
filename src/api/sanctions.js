@@ -24,7 +24,6 @@ export function useGetSancions(user) {
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
-  console.log("data: ", data);
   const memoizedValue = useMemo(
     () => ({
       sanctions: data?.sancion,

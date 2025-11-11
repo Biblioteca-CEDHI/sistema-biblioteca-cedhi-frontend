@@ -51,7 +51,7 @@ export default function ProfilePage() {
   };
 
   const roles = {
-    1: 'Admin',
+    1: 'Administrador',
     2: 'Bibliotecario',
     3: 'Tutor'
   };

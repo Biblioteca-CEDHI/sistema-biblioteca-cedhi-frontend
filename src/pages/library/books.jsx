@@ -65,7 +65,7 @@ function dataSort(data, sortBy) {
     if (sortBy === 'Páginas') return b.num_paginas < a.num_paginas ? 1 : -1;
     if (sortBy === 'Tema') return b.tema?.localeCompare(a.tema);
     if (sortBy === 'Disponibilidad') return b.disponibilidad < a.disponibilidad ? 1 : -1;
-    return a;
+    return b.titulo?.localeCompare(a.titulo);
   });
 }
 
@@ -121,9 +121,6 @@ export default function Books() {
 
   return (
     <>
-      {console.log("userCard:", userCard)}
-      {console.log("bookLoading:", bookLoading)}
-      {console.log("favoriteBooks:", favoriteBooks)}
       <Box sx={{ position: 'relative', marginBottom: 3 }}>
         <Stack direction="row" alignItems="center">
           <Stack

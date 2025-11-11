@@ -255,20 +255,6 @@ export default function UserManagementListPage() {
         }
       },
       {
-        header: 'Género',
-        accessorKey: 'sexo',
-        cell: ({ row }) => (
-          <Stack direction="row" spacing={1.5} alignItems="center">
-            <Stack spacing={0}>
-              {row.original.sexo === 'M' ?
-                <Typography color="text.secondary">Masculino</Typography>
-                : <Typography color="text.secondary">Femenino</Typography>
-              }
-            </Stack>
-          </Stack>
-        )
-      },
-      {
         header: 'Actiones',
         meta: {
           className: 'cell-center'

@@ -16,7 +16,6 @@ export function useActiveLoans() {
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
-  console.log("data", data);
   const memoizedValue = useMemo(
     () => ({
       activeLoans: data?.activeLoans || [],

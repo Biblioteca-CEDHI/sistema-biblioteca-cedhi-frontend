@@ -65,7 +65,7 @@ export default function FormLoanReturn({ loanReturn, closeModal }) {
         await insertLoanReturn(newLoanReturn).then(() => {
           openSnackbar({
             open: true,
-            message: 'Se registró el préstamo.',
+            message: 'Devolución exitosa.',
             variant: 'alert',
 
             alert: {
@@ -186,7 +186,7 @@ export default function FormLoanReturn({ loanReturn, closeModal }) {
                       </Grid>
                     </Grid>
                   </Grid>
-                    <Grid item xs={12} sm={4} xl={3}>
+                  <Grid item xs={12} sm={4} xl={3}>
                     <MainCard title="Asignar Sanción">
                       <Grid item xs={12}>
                         <Stack spacing={1}>

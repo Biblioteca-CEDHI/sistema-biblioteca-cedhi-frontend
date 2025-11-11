@@ -40,7 +40,7 @@ import { insertUserCedhi, updateUserCedhi } from '../../api/users';
 import { Trash } from 'iconsax-react';
 
 const allCategorys = [
-  { value: 'AlumnosCEDHI', label: 'Alumno' },
+  { value: 'Estudiante', label: 'Estudiante' },
   { value: 'Docente', label: 'Docente' },
   { value: 'Administrativo', label: 'Administrativo' }
 ];
@@ -60,8 +60,7 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
     codigo: Yup.number().required('El DNI es obligatorio'),
     nombres: Yup.string().max(255).required('El nombre completo es obligatorio'),
     email: Yup.string().max(255).required('El correo es obligatorio').email('Debe ser un correo electrónico válido'),
-    categoria: Yup.string().required('La categoría es obligatorio'),
-    sexo: Yup.string().required('El género es es obligatorio')
+    categoria: Yup.string().required('La categoría es obligatorio')
   });
 
   const [openAlert, setOpenAlert] = useState(false);
@@ -76,13 +75,11 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
       codigo: userManagement?.codigo || '',
       nombres: userManagement?.nombres || '',
       email: userManagement?.email || '',
-      categoria: userManagement?.categoria || '',
-      sexo: userManagement?.sexo || ''
+      categoria: userManagement?.categoria || ''
     },
     validationSchema: UserManagementSchema,
     enableReinitialize: true,
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("onSubmit llamado con values:", values);
       try {
         let newUserManagement = values;
         if (userManagement) {
@@ -135,9 +132,6 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
         </Stack>
       </Box>
     );
-  console.log("isSubmitting al render:", isSubmitting);
-  console.log("¿Formulario válido?", formik.isValid);
-  console.log("¿Puede enviarse?", !isSubmitting && formik.isValid && formik.dirty);
   return (
     <>
       <FormikProvider value={formik}>
@@ -231,31 +225,6 @@ export default function FormUserManagementAdd({ userManagement, closeModal }) {
                             {errors.categoria}
                           </FormHelperText>
                         )}
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Stack spacing={1}>
-                        <InputLabel htmlFor="customer-sexo">Género</InputLabel>
-                        <FormControl fullWidth error={Boolean(touched.sexo && errors.sexo)}>
-                          <Select
-                            id="customer-sexo"
-                            displayEmpty
-                            {...getFieldProps('sexo')}
-                            input={<OutlinedInput id="select-sexo" />}
-                            renderValue={(selected) => {
-                              if (!selected) {
-                                return <Typography variant="subtitle2">Seleccione género</Typography>;
-                              }
-                              return <Typography>{selected === 'M' ? 'Masculino' : 'Femenino'}</Typography>;
-                            }}
-                          >
-                            <MenuItem value="M">Masculino</MenuItem>
-                            <MenuItem value="F">Femenino</MenuItem>
-                          </Select>
-                          {touched.sexo && errors.sexo && (
-                            <FormHelperText error>{errors.sexo}</FormHelperText>
-                          )}
-                        </FormControl>
                       </Stack>
                     </Grid>
                   </Grid>
