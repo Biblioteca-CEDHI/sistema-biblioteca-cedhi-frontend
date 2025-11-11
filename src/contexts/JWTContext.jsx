@@ -91,7 +91,7 @@ export const JWTProvider = ({ children }) => {
   };
 
   const returnDasboard = () => {
-    window.location.href = "http://localhost/BibliotecaCEDHI";
+    window.location.href = "https://biblioteca.cedhinuevaarequipa.edu.pe";
     setSession(null);
     dispatch({ type: LOGOUT });
     localStorage.clear();
